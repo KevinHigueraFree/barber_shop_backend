@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { DomainException } from '../../user/domain/exceptions/domain.exception';
+import { DomainException } from '@/user/domain/exceptions/domain.exception';
 
 interface ErrorResponseBody {
   message?: string | string[];

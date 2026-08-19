@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from '../../domain/entities/user.entity';
-import { UpdateUser } from '../../domain/entities/update-user';
-import type { UserRepository } from '../../domain/repositories/user.repository';
-import { USER_REPOSITORY } from '../../domain/repositories/user.repository';
-import { UpdateUserDto } from '../dtos/update-user.dto';
+import { User } from '@/user/domain/entities/user.entity';
+import { UpdateUser } from '@/user/domain/entities/update-user';
+import type { UserRepository } from '@/user/domain/repositories/user.repository';
+import { USER_REPOSITORY } from '@/user/domain/repositories/user.repository';
+import { UpdateUserDto } from '@/user/application/dtos/update-user.dto';
 import {
   EntityNotFoundException,
   ConflictDomainException,
-} from '../../domain/exceptions/domain.exception';
+} from '@/user/domain/exceptions/domain.exception';
 
 @Injectable()
 export class UpdateUserUseCase {

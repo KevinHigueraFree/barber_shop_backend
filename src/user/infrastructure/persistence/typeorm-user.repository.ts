@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../../domain/entities/user.entity';
-import { NewUser } from '../../domain/entities/new-user';
-import { UpdateUser } from '../../domain/entities/update-user';
-import { UserRepository } from '../../domain/repositories/user.repository';
-import { TypeOrmUserEntity } from './typeorm-user.entity';
+import { User } from '@/user/domain/entities/user.entity';
+import { NewUser } from '@/user/domain/entities/new-user';
+import { UpdateUser } from '@/user/domain/entities/update-user';
+import { UserRepository } from '@/user/domain/repositories/user.repository';
+import { TypeOrmUserEntity } from '@/user/infrastructure/persistence/typeorm-user.entity';
 
 @Injectable()
 export class TypeOrmUserRepository implements UserRepository {

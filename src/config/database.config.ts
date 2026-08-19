@@ -8,7 +8,7 @@ export default registerAs('database', (): TypeOrmModuleOptions => ({
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: [__dirname + '/../**/infraestructure/persistence/*.entity{.ts,.js}'],
+  entities: [__dirname + '/../**/infrastructure/persistence/*.entity{.ts,.js}'],
   synchronize: false, // NUNCA true en un proyecto real
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   ssl: {

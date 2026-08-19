@@ -31,6 +31,29 @@
 $ npm install
 ```
 
+## Database migrations
+
+```bash
+# Generate a migration after changing an entity
+$ npm run migration:generate -- src/migrations/NombreDeLaMigracion
+
+# Run pending migrations
+$ npm run migration:run
+
+# Revert the last migration
+$ npm run migration:revert
+```
+
+## Format and lint
+
+```bash
+# Format TypeScript files with Prettier
+$ npm run format
+
+# Check and fix ESLint issues
+$ npm run lint
+```
+
 ## Compile and run the project
 
 ```bash

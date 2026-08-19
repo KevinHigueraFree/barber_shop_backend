@@ -2,7 +2,7 @@ import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nes
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiResponse } from '../interfaces/api-response.interface';
+import { ApiResponse } from '@/shared/interfaces/api-response.interface';
 
 /**
  * Global interceptor that wraps every successful response in the standard

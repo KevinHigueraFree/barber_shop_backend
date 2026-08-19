@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import databaseConfig from './config/database.config';
-import { UserModule } from './user/infraestructure/user.module';
+import databaseConfig from '@/config/database.config';
+import { UserModule } from '@/user/infrastructure/user.module';
+import { ServiceModule } from '@/service/infrastructure/service.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserModule } from './user/infraestructure/user.module';
         configService.get<TypeOrmModuleOptions>('database')!,
     }),
     UserModule,
+    ServiceModule,
   ],
 })
 export class AppModule {}

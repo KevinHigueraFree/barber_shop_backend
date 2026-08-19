@@ -11,7 +11,7 @@ export default new DataSource({
   username: process.env.DB_USER ?? 'postgres',
   password: process.env.DB_PASS ?? '',
   database: process.env.DB_NAME ?? '',
-  entities: ['src/**/infraestructure/persistence/*.entity.ts'],
+  entities: ['src/**/infrastructure/persistence/*.entity.ts'],
   migrations: ['src/migrations/*.ts'],
   ssl: {
     rejectUnauthorized: false,

@@ -1,6 +1,6 @@
-import { User } from '../entities/user.entity';
-import type { NewUser } from '../entities/new-user';
-import type { UpdateUser } from '../entities/update-user';
+import { User } from '@/user/domain/entities/user.entity';
+import type { NewUser } from '@/user/domain/entities/new-user';
+import type { UpdateUser } from '@/user/domain/entities/update-user';
 
 export interface UserRepository {
   create(user: NewUser): Promise<User>;
