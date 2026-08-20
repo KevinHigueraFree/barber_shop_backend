@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -8,17 +8,18 @@ export class CreateServiceDto {
     example: 'Top Face',
   })
   @IsNotEmpty({ message: 'name must not be empty' })
-  @IsString({ message: 'name must be string' })
+  @IsString({ message: 'name must be a string' })
   name!: string;
 
   @ApiProperty({
     description: 'Service description',
-    example: 'Top Face i a new cut',
+    example: 'Top Face is a new cut',
+    required: false,
   })
   @IsOptional()
   @IsNotEmpty({ message: 'description must not be empty' })
-  @IsString({ message: 'description must be string' })
-  description!: string;
+  @IsString({ message: 'description must be a string' })
+  description?: string;
 
   @ApiProperty({
     description: 'Service price',
@@ -29,4 +30,15 @@ export class CreateServiceDto {
   @IsNumber({}, { message: 'price must be a number' })
   @Min(0, { message: 'price must be greater than or equal to 0' })
   price!: number;
+
+  @ApiProperty({
+    description: 'Service duration in minutes',
+    example: 60,
+  })
+  @IsNotEmpty({ message: 'duration must not be empty' })
+  @Type(() => Number)
+  @IsNumber({}, { message: 'duration must be a number' })
+  @Min(1, { message: 'duration must be greater than or equal to 1' })
+  @Max(120, { message: 'duration must be less than or equal to 120' })
+  duration!: number;
 }

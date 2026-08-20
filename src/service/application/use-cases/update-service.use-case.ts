@@ -34,6 +34,7 @@ export class UpdateServiceUseCase {
       dto.name ?? existing.name,
       dto.description ?? existing.description,
       dto.price ?? existing.price,
+      dto.duration ?? existing.duration,
     );
 
     return this.ServiceRepository.update(updateService);

@@ -19,7 +19,13 @@ export class CreateUserUseCase {
       throw new ConflictDomainException('The email is already registered');
     }
 
-    const newUser = new NewUser(dto.name, dto.email);
+    const newUser = new NewUser(
+      dto.name,
+      dto.email,
+      dto.password,
+      dto.isAdmin ?? false,
+      dto.isEnabled ?? true,
+    );
     return this.userRepository.create(newUser);
   }
 }

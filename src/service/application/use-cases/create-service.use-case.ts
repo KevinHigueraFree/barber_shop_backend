@@ -19,7 +19,7 @@ export class CreateServiceUseCase {
       throw new ConflictDomainException('The name is already registered');
     }
 
-    const newService = new NewService(dto.name, dto.description, dto.price);
+    const newService = new NewService(dto.name, dto.description, dto.price, dto.duration);
     return this.serviceRepository.create(newService);
   }
 }

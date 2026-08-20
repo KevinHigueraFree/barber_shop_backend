@@ -41,6 +41,7 @@ export class TypeOrmServiceRepository implements ServiceRepository {
       name: updateService.name,
       description: updateService.description,
       price: updateService.price,
+      duration: updateService.duration,
     });
     if (!entity) {
       throw new Error('Service not found');
@@ -60,6 +61,14 @@ export class TypeOrmServiceRepository implements ServiceRepository {
   }
 
   private toDomain(entity: TypeOrmServiceEntity): Service {
-    return new Service(entity.id, entity.name, entity.description, entity.price, entity.createdAt);
+    return new Service(
+      entity.id,
+      entity.name,
+      entity.description,
+      entity.price,
+      entity.duration,
+      entity.createdAt,
+      entity.updatedAt,
+    );
   }
 }

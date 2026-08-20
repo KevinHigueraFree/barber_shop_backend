@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, IsNull } from 'typeorm';
 import { User } from '@/user/domain/entities/user.entity';
 import { NewUser } from '@/user/domain/entities/new-user';
 import { UpdateUser } from '@/user/domain/entities/update-user';
@@ -15,24 +15,30 @@ export class TypeOrmUserRepository implements UserRepository {
   ) {}
 
   async create(newUser: NewUser): Promise<User> {
-    const entity = this.repo.create(newUser); // without id: DB generates it
+    const entity = this.repo.create({
+      name: newUser.name,
+      email: newUser.email,
+      password: newUser.password,
+      isAdmin: newUser.isAdmin,
+      isEnabled: newUser.isEnabled,
+    });
     const saved = await this.repo.save(entity);
     return this.toDomain(saved);
   }
 
   async findById(id: number): Promise<User | null> {
-    const entity = await this.repo.findOneBy({ id });
+    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
     return entity ? this.toDomain(entity) : null;
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const entity = await this.repo.findOneBy({ email });
+    const entity = await this.repo.findOneBy({ email, deletedAt: IsNull() });
     return entity ? this.toDomain(entity) : null;
   }
 
   async findAll(): Promise<User[]> {
-    const entities = await this.repo.find();
-    return entities.map((e) => this.toDomain(e));
+    const entities = await this.repo.find({ where: { deletedAt: IsNull() } });
+    return entities.map((entity) => this.toDomain(entity));
   }
 
   async update(updateUser: UpdateUser): Promise<User> {
@@ -40,6 +46,9 @@ export class TypeOrmUserRepository implements UserRepository {
       id: updateUser.id,
       name: updateUser.name,
       email: updateUser.email,
+      password: updateUser.password,
+      isAdmin: updateUser.isAdmin,
+      isEnabled: updateUser.isEnabled,
     });
     if (!entity) {
       throw new Error('User not found');
@@ -47,18 +56,29 @@ export class TypeOrmUserRepository implements UserRepository {
     const saved = await this.repo.save(entity);
     return this.toDomain(saved);
   }
+
   async deleteById(id: number): Promise<User | null> {
-    const entity = await this.repo.findOneBy({ id });
+    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
 
     if (!entity) {
       return null;
     }
 
-    const deleted = await this.repo.remove(entity);
+    const deleted = await this.repo.softRemove(entity);
     return this.toDomain(deleted);
   }
 
   private toDomain(entity: TypeOrmUserEntity): User {
-    return new User(entity.id, entity.name, entity.email, entity.createdAt);
+    return new User(
+      entity.id,
+      entity.name,
+      entity.email,
+      entity.password,
+      entity.isAdmin,
+      entity.isEnabled,
+      entity.createdAt,
+      entity.updatedAt,
+      entity.deletedAt,
+    );
   }
 }

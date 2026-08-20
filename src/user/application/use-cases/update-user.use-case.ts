@@ -29,7 +29,14 @@ export class UpdateUserUseCase {
       }
     }
 
-    const updateUser = new UpdateUser(id, dto.name ?? existing.name, dto.email ?? existing.email);
+    const updateUser = new UpdateUser(
+      id,
+      dto.name ?? existing.name,
+      dto.email ?? existing.email,
+      dto.password,
+      dto.isAdmin,
+      dto.isEnabled,
+    );
 
     return this.userRepository.update(updateUser);
   }
