@@ -5,6 +5,7 @@ import databaseConfig from '@/config/database.config';
 import { UserModule } from '@/user/infrastructure/user.module';
 import { ServiceModule } from '@/service/infrastructure/service.module';
 import { TimeOffModule } from '@/time-off/infrastructure/time-off.module';
+import { StaffScheduleModule } from '@/staff-schedule/infrastructure/staff-schedule.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TimeOffModule } from '@/time-off/infrastructure/time-off.module';
     UserModule,
     ServiceModule,
     TimeOffModule,
+    StaffScheduleModule,
   ],
 })
 export class AppModule {}

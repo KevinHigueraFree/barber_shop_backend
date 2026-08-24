@@ -8,6 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { TypeOrmTimeOffEntity } from '@/time-off/infrastructure/persistence/typeorm-time-off.entity'; // Asegúrate de importar la otra entidad
+import { TypeOrmStaffScheduleEntity } from '@/staff-schedule/infrastructure/persistence/typeorm-staff-schedule.entity';
 
 @Entity('users')
 export class TypeOrmUserEntity {
@@ -46,4 +47,9 @@ export class TypeOrmUserEntity {
     cascade: true,
   })
   timeOffs!: TypeOrmTimeOffEntity[];
+
+  @OneToMany(() => TypeOrmStaffScheduleEntity, (staffSchedule) => staffSchedule.staff, {
+    cascade: true,
+  })
+  staffSchedules!: TypeOrmStaffScheduleEntity[];
 }
