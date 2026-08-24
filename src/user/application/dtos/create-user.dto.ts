@@ -1,4 +1,12 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
@@ -29,14 +37,13 @@ export class CreateUserDto {
   password!: string;
 
   @ApiProperty({
-    description: 'Indicates if the user is an admin',
-    example: false,
-    required: false,
-    default: false,
+    description: 'Role ID associated with the user (e.g., 1=Admin, 2=Staff, 3=Customer)',
+    example: 3,
+    required: true,
   })
-  @IsOptional()
-  @IsBoolean({ message: 'isAdmin must be a boolean' })
-  isAdmin?: boolean;
+  @IsNotEmpty({ message: 'roleId must not be empty' })
+  @IsNumber({}, { message: 'roleId must be a number' })
+  roleId!: number;
 
   @ApiProperty({
     description: 'Indicates if the user is enabled',

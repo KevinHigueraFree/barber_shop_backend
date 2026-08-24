@@ -3,7 +3,7 @@ export class NewUser {
     public name: string,
     public email: string,
     public password: string,
-    public isAdmin: boolean = false,
+    public roleId: number,
     public isEnabled: boolean = true,
   ) {}
 }

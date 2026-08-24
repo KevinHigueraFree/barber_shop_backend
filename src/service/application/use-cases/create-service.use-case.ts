@@ -3,7 +3,7 @@ import { SERVICE_REPOSITORY } from '@/service/domain/repositories/service.reposi
 import type { ServiceRepository } from '@/service/domain/repositories/service.repository';
 import { CreateServiceDto } from '@/service/application/dtos/create-service.dto';
 import { Service } from '@/service/domain/entities/service.entity';
-import { ConflictDomainException } from '@/user/domain/exceptions/domain.exception';
+import { ConflictDomainException } from '@/shared/domain/exceptions/domain.exception';
 import { NewService } from '@/service/domain/entities/new-service';
 
 @Injectable()

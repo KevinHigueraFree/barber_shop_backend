@@ -4,6 +4,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import databaseConfig from '@/config/database.config';
 import { UserModule } from '@/user/infrastructure/user.module';
 import { ServiceModule } from '@/service/infrastructure/service.module';
+import { TimeOffModule } from '@/time-off/infrastructure/time-off.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ServiceModule } from '@/service/infrastructure/service.module';
     }),
     UserModule,
     ServiceModule,
+    TimeOffModule,
   ],
 })
 export class AppModule {}

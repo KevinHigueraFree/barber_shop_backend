@@ -26,5 +26,6 @@ import { TypeOrmUserEntity } from '@/user/infrastructure/persistence/typeorm-use
       useClass: TypeOrmUserRepository,
     },
   ],
+  exports: ['USER_REPOSITORY'],
 })
 export class UserModule {}

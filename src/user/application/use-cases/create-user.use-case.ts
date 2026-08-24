@@ -4,7 +4,7 @@ import { NewUser } from '@/user/domain/entities/new-user';
 import type { UserRepository } from '@/user/domain/repositories/user.repository';
 import { USER_REPOSITORY } from '@/user/domain/repositories/user.repository';
 import { CreateUserDto } from '@/user/application/dtos/create-user.dto';
-import { ConflictDomainException } from '@/user/domain/exceptions/domain.exception';
+import { ConflictDomainException } from '@/shared/domain/exceptions/domain.exception';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -23,7 +23,7 @@ export class CreateUserUseCase {
       dto.name,
       dto.email,
       dto.password,
-      dto.isAdmin ?? false,
+      dto.roleId,
       dto.isEnabled ?? true,
     );
     return this.userRepository.create(newUser);

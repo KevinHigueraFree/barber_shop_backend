@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { TypeOrmTimeOffEntity } from '@/time-off/infrastructure/persistence/typeorm-time-off.entity'; // Asegúrate de importar la otra entidad
 
 @Entity('users')
 export class TypeOrmUserEntity {
@@ -24,8 +26,9 @@ export class TypeOrmUserEntity {
   @Column({ nullable: true })
   phone?: string;
 
-  @Column({ default: false, name: 'is_admin' })
-  isAdmin!: boolean;
+  // Cambiamos los booleanos antiguos por el rol centralizado
+  @Column({ name: 'role_id' })
+  roleId!: number;
 
   @Column({ default: true, name: 'is_enabled' })
   isEnabled!: boolean;
@@ -38,4 +41,9 @@ export class TypeOrmUserEntity {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
+
+  @OneToMany(() => TypeOrmTimeOffEntity, (timeOff) => timeOff.staff, {
+    cascade: true,
+  })
+  timeOffs!: TypeOrmTimeOffEntity[];
 }

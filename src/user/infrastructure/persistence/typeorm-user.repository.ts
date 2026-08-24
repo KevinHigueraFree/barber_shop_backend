@@ -19,7 +19,7 @@ export class TypeOrmUserRepository implements UserRepository {
       name: newUser.name,
       email: newUser.email,
       password: newUser.password,
-      isAdmin: newUser.isAdmin,
+      roleId: newUser.roleId,
       isEnabled: newUser.isEnabled,
     });
     const saved = await this.repo.save(entity);
@@ -47,7 +47,7 @@ export class TypeOrmUserRepository implements UserRepository {
       name: updateUser.name,
       email: updateUser.email,
       password: updateUser.password,
-      isAdmin: updateUser.isAdmin,
+      roleId: updateUser.roleId,
       isEnabled: updateUser.isEnabled,
     });
     if (!entity) {
@@ -74,7 +74,7 @@ export class TypeOrmUserRepository implements UserRepository {
       entity.name,
       entity.email,
       entity.password,
-      entity.isAdmin,
+      entity.roleId,
       entity.isEnabled,
       entity.createdAt,
       entity.updatedAt,

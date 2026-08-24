@@ -7,7 +7,7 @@ import { UpdateUserDto } from '@/user/application/dtos/update-user.dto';
 import {
   EntityNotFoundException,
   ConflictDomainException,
-} from '@/user/domain/exceptions/domain.exception';
+} from '@/shared/domain/exceptions/domain.exception';
 
 @Injectable()
 export class UpdateUserUseCase {
@@ -34,7 +34,7 @@ export class UpdateUserUseCase {
       dto.name ?? existing.name,
       dto.email ?? existing.email,
       dto.password,
-      dto.isAdmin,
+      dto.roleId,
       dto.isEnabled,
     );
 

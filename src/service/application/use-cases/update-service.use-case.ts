@@ -7,7 +7,7 @@ import { UpdateServiceDto } from '@/service/application/dtos/update-service.dto'
 import {
   EntityNotFoundException,
   ConflictDomainException,
-} from '@/service/domain/exceptions/domain.exception';
+} from '@/shared/domain/exceptions/domain.exception';
 
 @Injectable()
 export class UpdateServiceUseCase {

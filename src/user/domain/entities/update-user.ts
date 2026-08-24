@@ -4,7 +4,7 @@ export class UpdateUser {
     public name?: string,
     public email?: string,
     public password?: string,
-    public isAdmin?: boolean,
+    public roleId?: number,
     public isEnabled?: boolean,
   ) {}
 }

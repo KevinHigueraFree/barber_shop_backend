@@ -4,7 +4,7 @@ export class User {
     public name: string,
     public email: string,
     public password: string,
-    public isAdmin: boolean = false,
+    public roleId: number,
     public isEnabled: boolean = true,
     public readonly createdAt: Date = new Date(),
     public updatedAt: Date = new Date(),
