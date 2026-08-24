@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsOptional, IsString, Matches, IsNumber } from 'class-validator';
+import { IsDate, IsNotEmpty, IsOptional, IsString, Matches, IsNumber, Min } from 'class-validator';
 
 const timePattern = /^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/;
 
@@ -8,6 +8,7 @@ export class CreateStaffScheduleDto {
   @ApiProperty({ description: 'ID of the staff member', example: 5 })
   @IsNotEmpty({ message: 'staffId must not be empty' })
   @IsNumber({}, { message: 'staffId must be a number' })
+  @Min(1, { message: 'staffId must be greater than or equal to 1' })
   staffId!: number;
 
   @ApiProperty({

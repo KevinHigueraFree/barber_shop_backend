@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmServiceEntity } from '@/service/infrastructure/persistence/typeorm-service.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { NewService } from '@/service/domain/entities/new-service';
 import { Service } from '@/service/domain/entities/service.entity';
 import { UpdateService } from '@/service/domain/entities/update-service';
@@ -21,17 +21,17 @@ export class TypeOrmServiceRepository implements ServiceRepository {
   }
 
   async findById(id: number): Promise<Service | null> {
-    const entity = await this.repo.findOneBy({ id });
+    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
     return entity ? this.toDomain(entity) : null;
   }
 
   async findByName(name: string): Promise<Service | null> {
-    const entity = await this.repo.findOneBy({ name });
+    const entity = await this.repo.findOneBy({ name, deletedAt: IsNull() });
     return entity ? this.toDomain(entity) : null;
   }
 
   async findAll(): Promise<Service[]> {
-    const entities = await this.repo.find();
+    const entities = await this.repo.find({ where: { deletedAt: IsNull() } });
     return entities.map((e) => this.toDomain(e));
   }
 
@@ -50,13 +50,13 @@ export class TypeOrmServiceRepository implements ServiceRepository {
     return this.toDomain(saved);
   }
   async deleteById(id: number): Promise<Service | null> {
-    const entity = await this.repo.findOneBy({ id });
+    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
 
     if (!entity) {
       return null;
     }
 
-    const deleted = await this.repo.remove(entity);
+    const deleted = await this.repo.softRemove(entity);
     return this.toDomain(deleted);
   }
 
@@ -69,6 +69,7 @@ export class TypeOrmServiceRepository implements ServiceRepository {
       entity.duration,
       entity.createdAt,
       entity.updatedAt,
+      entity.deletedAt ?? null,
     );
   }
 }

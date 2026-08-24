@@ -6,6 +6,7 @@ import { UserModule } from '@/user/infrastructure/user.module';
 import { ServiceModule } from '@/service/infrastructure/service.module';
 import { TimeOffModule } from '@/time-off/infrastructure/time-off.module';
 import { StaffScheduleModule } from '@/staff-schedule/infrastructure/staff-schedule.module';
+import { StaffServiceModule } from '@/staff-service/infrastructure/staff-service.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { StaffScheduleModule } from '@/staff-schedule/infrastructure/staff-sched
     ServiceModule,
     TimeOffModule,
     StaffScheduleModule,
+    StaffServiceModule,
   ],
 })
 export class AppModule {}

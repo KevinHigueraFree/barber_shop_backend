@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, IsDate, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsDate, MaxLength, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -9,6 +9,7 @@ export class CreateTimeOffDto {
   })
   @IsNotEmpty({ message: 'staffId must not be empty' })
   @IsNumber({}, { message: 'staffId must be a number' })
+  @Min(1, { message: 'staffId must be greater than or equal to 1' })
   staffId!: number;
 
   @ApiProperty({

@@ -5,12 +5,18 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  Index,
   OneToMany,
 } from 'typeorm';
 import { TypeOrmTimeOffEntity } from '@/time-off/infrastructure/persistence/typeorm-time-off.entity'; // Asegúrate de importar la otra entidad
 import { TypeOrmStaffScheduleEntity } from '@/staff-schedule/infrastructure/persistence/typeorm-staff-schedule.entity';
+import { TypeOrmStaffServiceEntity } from '@/staff-service/infrastructure/persistence/typeorm-staff-service.entity';
 
 @Entity('users')
+@Index('IDX_users_email_active_unique', ['email'], {
+  unique: true,
+  where: '"deleted_at" IS NULL',
+})
 export class TypeOrmUserEntity {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -18,7 +24,7 @@ export class TypeOrmUserEntity {
   @Column()
   name!: string;
 
-  @Column({ unique: true })
+  @Column()
   email!: string;
 
   @Column({ select: false })
@@ -52,4 +58,9 @@ export class TypeOrmUserEntity {
     cascade: true,
   })
   staffSchedules!: TypeOrmStaffScheduleEntity[];
+
+  @OneToMany(() => TypeOrmStaffServiceEntity, (staffService) => staffService.staff, {
+    cascade: true,
+  })
+  staffServices!: TypeOrmStaffServiceEntity[];
 }

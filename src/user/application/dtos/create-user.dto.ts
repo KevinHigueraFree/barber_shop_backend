@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Min,
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
@@ -43,6 +44,7 @@ export class CreateUserDto {
   })
   @IsNotEmpty({ message: 'roleId must not be empty' })
   @IsNumber({}, { message: 'roleId must be a number' })
+  @Min(1, { message: 'roleId must be greater than or equal to 1' })
   roleId!: number;
 
   @ApiProperty({

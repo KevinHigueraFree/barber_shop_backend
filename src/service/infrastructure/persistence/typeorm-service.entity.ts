@@ -3,9 +3,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
+  OneToMany,
   UpdateDateColumn,
   ValueTransformer,
 } from 'typeorm';
+import { TypeOrmStaffServiceEntity } from '@/staff-service/infrastructure/persistence/typeorm-staff-service.entity';
 
 const decimalTransformer: ValueTransformer = {
   to: (value: number) => value,
@@ -34,4 +37,12 @@ export class TypeOrmServiceEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt?: Date;
+
+  @OneToMany(() => TypeOrmStaffServiceEntity, (staffService) => staffService.service, {
+    cascade: true,
+  })
+  staffServices!: TypeOrmStaffServiceEntity[];
 }

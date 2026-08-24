@@ -7,5 +7,6 @@ export class Service {
     public duration: number = 0,
     public readonly createdAt: Date = new Date(),
     public updatedAt: Date = new Date(),
+    public deletedAt: Date | null = null,
   ) {}
 }

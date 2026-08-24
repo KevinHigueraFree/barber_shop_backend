@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "BarberShop",
-    "description": "Colección de Postman para la API Barber Shop. Incluye los módulos de Users, Services y Time Off.",
+    "description": "Colección de Postman para la API Barber Shop. Incluye los módulos de Users, Services, Time Off y Staff Service.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -348,6 +348,210 @@
               ]
             },
             "description": "Elimina una ausencia por su ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Staff Service",
+      "item": [
+        {
+          "name": "Create Staff Service",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": {{userId}},\n  \"serviceId\": {{serviceId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/staff-service",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-service"
+              ]
+            },
+            "description": "Asigna un servicio a un miembro del personal. Ambos IDs deben existir."
+          },
+          "response": []
+        },
+        {
+          "name": "List Staff Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/staff-service",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-service"
+              ]
+            },
+            "description": "Obtiene todas las asignaciones activas entre personal y servicios."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Staff Service by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/staff-service/{{staffServiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-service",
+                "{{staffServiceId}}"
+              ]
+            },
+            "description": "Obtiene una asignación de personal y servicio por su ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Staff Service",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/staff-service/{{staffServiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-service",
+                "{{staffServiceId}}"
+              ]
+            },
+            "description": "Elimina lógicamente una asignación de personal y servicio."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Staff Schedule",
+      "item": [
+        {
+          "name": "Create Staff Schedule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": {{userId}},\n  \"dayOfWeek\": \"2026-06-01\",\n  \"workStartTime\": \"09:00:00\",\n  \"workEndTime\": \"18:00:00\",\n  \"breakStartTime\": \"13:00:00\",\n  \"breakEndTime\": \"14:00:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/staff-schedule",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-schedule"
+              ]
+            },
+            "description": "Crea un horario para un miembro del personal. El descanso es opcional, pero sus dos horarios deben enviarse juntos."
+          },
+          "response": []
+        },
+        {
+          "name": "List Staff Schedules",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/staff-schedule",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-schedule"
+              ]
+            },
+            "description": "Obtiene todos los horarios activos del personal."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Staff Schedule by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/staff-schedule/{{staffScheduleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-schedule",
+                "{{staffScheduleId}}"
+              ]
+            },
+            "description": "Obtiene un horario por su ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Staff Schedule",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workStartTime\": \"10:00:00\",\n  \"workEndTime\": \"19:00:00\",\n  \"breakStartTime\": \"14:00:00\",\n  \"breakEndTime\": \"15:00:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/staff-schedule/{{staffScheduleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-schedule",
+                "{{staffScheduleId}}"
+              ]
+            },
+            "description": "Actualiza un horario existente por su ID. Todos los campos son opcionales."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Staff Schedule",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/staff-schedule/{{staffScheduleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "staff-schedule",
+                "{{staffScheduleId}}"
+              ]
+            },
+            "description": "Elimina lógicamente un horario por su ID."
           },
           "response": []
         }

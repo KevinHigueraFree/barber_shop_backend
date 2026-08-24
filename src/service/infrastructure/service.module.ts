@@ -26,5 +26,6 @@ import { TypeOrmServiceRepository } from '@/service/infrastructure/persistence/t
       useClass: TypeOrmServiceRepository,
     },
   ],
+  exports: [SERVICE_REPOSITORY],
 })
 export class ServiceModule {}

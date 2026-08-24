@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { QueryFailedError } from 'typeorm';
 import { DomainException } from '@/shared/domain/exceptions/domain.exception';
 
 interface ErrorResponseBody {
@@ -63,6 +64,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       return exception.getStatus();
     }
+    if (this.isUniqueConstraintError(exception)) {
+      return HttpStatus.CONFLICT;
+    }
     return HttpStatus.INTERNAL_SERVER_ERROR;
   }
 
@@ -108,10 +112,25 @@ export class HttpExceptionFilter implements ExceptionFilter {
       return { code: 'HTTP_ERROR', message };
     }
 
+    if (this.isUniqueConstraintError(exception)) {
+      return {
+        code: 'CONFLICT',
+        message: 'The value is already registered',
+      };
+    }
+
     // Unknown / unhandled errors
     return {
       code: 'INTERNAL_ERROR',
       message: 'Error interno del servidor',
     };
+  }
+
+  private isUniqueConstraintError(exception: unknown): boolean {
+    return (
+      exception instanceof QueryFailedError &&
+      (exception as QueryFailedError & { driverError?: { code?: string } }).driverError?.code ===
+        '23505'
+    );
   }
 }
