@@ -60,6 +60,14 @@ export class TypeOrmServiceRepository implements ServiceRepository {
     return this.toDomain(deleted);
   }
 
+  async existsAny(): Promise<boolean> {
+    const entity = await this.repo.findOne({
+      where: { deletedAt: IsNull() },
+      select: ['id'], // selecciona solo la columna mínima
+    });
+    return entity !== null;
+  }
+
   private toDomain(entity: TypeOrmServiceEntity): Service {
     return new Service(
       entity.id,

@@ -39,6 +39,6 @@ export class CreateServiceDto {
   @Type(() => Number)
   @IsNumber({}, { message: 'duration must be a number' })
   @Min(1, { message: 'duration must be greater than or equal to 1' })
-  @Max(120, { message: 'duration must be less than or equal to 120' })
+  @Max(600, { message: 'duration must be less than or equal to 600' })
   duration!: number;
 }

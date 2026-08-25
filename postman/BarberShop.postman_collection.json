@@ -556,6 +556,103 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Scheduling Settings",
+      "item": [
+        {
+          "name": "Create Scheduling Settings",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slotDurationMinutes\": 15\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/scheduling-settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduling-settings"
+              ]
+            },
+            "description": "Crea la configuración de agendamiento. Solo puede existir UN registro en todo el sistema (single-tenant por ahora). Devuelve 409 si ya existe una configuración; en ese caso usar Update."
+          },
+          "response": []
+        },
+        {
+          "name": "List Scheduling Settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/scheduling-settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduling-settings"
+              ]
+            },
+            "description": "Obtiene todas las configuraciones de agendamiento (get all)."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Scheduling Settings by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/scheduling-settings/{{schedulingSettingsId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduling-settings",
+                "{{schedulingSettingsId}}"
+              ]
+            },
+            "description": "Obtiene la configuración de agendamiento por su {id}. Devuelve 404 si no existe."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Scheduling Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slotDurationMinutes\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/scheduling-settings/{{schedulingSettingsId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduling-settings",
+                "{{schedulingSettingsId}}"
+              ]
+            },
+            "description": "Actualiza la configuración de agendamiento existente, identificada por su {id}. Todos los campos son opcionales. No se puede eliminar esta configuración (no existe endpoint DELETE)."
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

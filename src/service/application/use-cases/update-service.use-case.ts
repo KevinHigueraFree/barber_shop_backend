@@ -8,12 +8,14 @@ import {
   EntityNotFoundException,
   ConflictDomainException,
 } from '@/shared/domain/exceptions/domain.exception';
+import { SchedulingSettingsService } from '@/scheduling-settings/application/services/scheduling-settings.service';
 
 @Injectable()
 export class UpdateServiceUseCase {
   constructor(
     @Inject(SERVICE_REPOSITORY)
     private readonly ServiceRepository: ServiceRepository,
+    private readonly schedulingSettingsService: SchedulingSettingsService,
   ) {}
 
   async execute(id: number, dto: UpdateServiceDto): Promise<Service> {
@@ -28,6 +30,9 @@ export class UpdateServiceUseCase {
         throw new ConflictDomainException('The name is already registered');
       }
     }
+
+    const duration = dto.duration ?? existing.duration;
+    await this.schedulingSettingsService.assertDurationIsMultipleOfSlot(duration);
 
     const updateService = new UpdateService(
       id,

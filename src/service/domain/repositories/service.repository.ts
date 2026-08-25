@@ -9,6 +9,7 @@ export interface ServiceRepository {
   findAll(): Promise<Service[]>;
   update(service: UpdateService): Promise<Service>;
   deleteById(id: number): Promise<Service | null>;
+  existsAny(): Promise<boolean>;
 }
 
 // Dependency injection token (Nest cannot inject interfaces directly)

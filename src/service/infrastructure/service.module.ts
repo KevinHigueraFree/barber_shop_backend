@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmServiceEntity } from '@/service/infrastructure/persistence/typeorm-service.entity';
 import { ServiceController } from '@/service/interfaces/http/service.controller';
@@ -10,9 +10,13 @@ import { DeleteServiceUseCase } from '@/service/application/use-cases/delete-ser
 import { ValidIdGuard } from '@/service/interfaces/http/guards/valid-id.guard';
 import { SERVICE_REPOSITORY } from '@/service/domain/repositories/service.repository';
 import { TypeOrmServiceRepository } from '@/service/infrastructure/persistence/typeorm-service.repository';
+import { SchedulingSettingsModule } from '@/scheduling-settings/infrastructure/scheduling-settings.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TypeOrmServiceEntity])],
+  imports: [
+    TypeOrmModule.forFeature([TypeOrmServiceEntity]),
+    forwardRef(() => SchedulingSettingsModule),
+  ],
   controllers: [ServiceController],
   providers: [
     CreateServiceUseCase,
