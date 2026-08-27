@@ -61,6 +61,14 @@ export class TypeOrmTimeSlotRepository implements TimeSlotRepository {
     return this.toDomain(deleted);
   }
 
+  async existsAny(): Promise<boolean> {
+    const entity = await this.repo.findOne({
+      where: { deletedAt: IsNull() },
+      select: ['id'], // selecciona solo la columna mínima
+    });
+    return entity !== null;
+  }
+
   private toDomain(entity: TypeOrmTimeSlotEntity): TimeSlot {
     return new TimeSlot(
       entity.id,

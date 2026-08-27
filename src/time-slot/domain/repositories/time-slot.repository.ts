@@ -9,6 +9,7 @@ export interface TimeSlotRepository {
   findAll(): Promise<TimeSlot[]>;
   update(updateTimeSlot: UpdateTimeSlot): Promise<TimeSlot>;
   deleteById(id: number): Promise<TimeSlot | null>;
+  existsAny(): Promise<boolean>;
 }
 
 export const TIME_SLOT_REPOSITORY = 'TIME_SLOT_REPOSITORY';

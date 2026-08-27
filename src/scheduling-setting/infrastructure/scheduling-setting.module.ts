@@ -10,11 +10,13 @@ import { TypeOrmSchedulingSettingRepository } from '@/scheduling-setting/infrast
 import { SchedulingSettingController } from '@/scheduling-setting/interfaces/http/scheduling-setting.controller';
 import { SchedulingSettingService } from '@/scheduling-setting/application/services/scheduling-setting.service';
 import { ServiceModule } from '@/service/infrastructure/service.module';
+import { TimeSlotModule } from '@/time-slot/infrastructure/time-slot.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([TypeOrmSchedulingSettingEntity]),
     forwardRef(() => ServiceModule),
+    forwardRef(() => TimeSlotModule),
   ],
   controllers: [SchedulingSettingController],
   providers: [

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/main.ts",
+    "src/**/*.module.ts",
+    "test/**/*.e2e-spec.ts"
+  ],
+  "project": ["src/**/*.ts"],
+  "ignore": [
+    "src/**/*.spec.ts",
+    "**/migrations/**"
+  ],
+  "ignoreDependencies": [
+    "@nestjs/testing"
+  ]
+}

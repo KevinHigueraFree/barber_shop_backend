@@ -9,6 +9,7 @@ import { StaffScheduleModule } from '@/staff-schedule/infrastructure/staff-sched
 import { StaffServiceModule } from '@/staff-service/infrastructure/staff-service.module';
 import { SchedulingSettingModule } from '@/scheduling-setting/infrastructure/scheduling-setting.module';
 import { TimeSlotModule } from '@/time-slot/infrastructure/time-slot.module';
+import { AppointmentStatusModule } from '@/appointment-status/infrastructure/appointment-status.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { TimeSlotModule } from '@/time-slot/infrastructure/time-slot.module';
     StaffServiceModule,
     SchedulingSettingModule,
     TimeSlotModule,
+    AppointmentStatusModule,
   ],
 })
 export class AppModule {}

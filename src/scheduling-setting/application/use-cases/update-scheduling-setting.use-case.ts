@@ -10,6 +10,8 @@ import {
 } from '@/shared/domain/exceptions/domain.exception';
 import { SERVICE_REPOSITORY } from '@/service/domain/repositories/service.repository';
 import type { ServiceRepository } from '@/service/domain/repositories/service.repository';
+import { TIME_SLOT_REPOSITORY } from '@/time-slot/domain/repositories/time-slot.repository';
+import type { TimeSlotRepository } from '@/time-slot/domain/repositories/time-slot.repository';
 
 @Injectable()
 export class UpdateSchedulingSettingUseCase {
@@ -18,6 +20,8 @@ export class UpdateSchedulingSettingUseCase {
     private readonly settingsRepository: SchedulingSettingRepository,
     @Inject(SERVICE_REPOSITORY)
     private readonly serviceRepository: ServiceRepository,
+    @Inject(TIME_SLOT_REPOSITORY)
+    private readonly timeSlotRepository: TimeSlotRepository,
   ) {}
 
   async execute(id: number, dto: UpdateSchedulingSettingDto): Promise<SchedulingSetting> {
@@ -41,14 +45,20 @@ export class UpdateSchedulingSettingUseCase {
       dto.slotDurationMinutes !== existing.slotDurationMinutes;
 
     if (isChangingSlotDuration) {
-      const hasservices = await this.serviceRepository.existsAny();
-      if (hasservices) {
+      const hasServices = await this.serviceRepository.existsAny();
+      if (hasServices) {
         throw new ConflictDomainException(
           'Cannot change slot duration while services already exist. Delete existing services first.',
         );
       }
-    }
 
+      const hasTimeSlots = await this.timeSlotRepository.existsAny();
+      if (hasTimeSlots) {
+        throw new ConflictDomainException(
+          'Cannot change slot duration while time-slot already exist. Delete existing time slots first',
+        );
+      }
+    }
     const slotDurationMinutes = dto.slotDurationMinutes ?? existing.slotDurationMinutes;
 
     return this.settingsRepository.update(
