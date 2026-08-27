@@ -17,7 +17,7 @@ import {
  * The DB-level CHECK guarantees the value is always positive even if inserted
  * outside the application (defense in depth on top of the DTO validation).
  */
-@Entity('scheduling_settings')
+@Entity('scheduling_setting')
 @Check('chk_slot_duration_positive', 'slot_duration_minutes > 0')
 export class TypeOrmSchedulingSettingEntity {
   @PrimaryGeneratedColumn()

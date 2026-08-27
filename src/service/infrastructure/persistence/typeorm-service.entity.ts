@@ -15,7 +15,7 @@ const decimalTransformer: ValueTransformer = {
   from: (value: string) => parseFloat(value),
 };
 
-@Entity('services')
+@Entity('service')
 export class TypeOrmServiceEntity {
   @PrimaryGeneratedColumn()
   id!: number;

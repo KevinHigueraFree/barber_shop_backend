@@ -12,8 +12,8 @@ import { TypeOrmTimeOffEntity } from '@/time-off/infrastructure/persistence/type
 import { TypeOrmStaffScheduleEntity } from '@/staff-schedule/infrastructure/persistence/typeorm-staff-schedule.entity';
 import { TypeOrmStaffServiceEntity } from '@/staff-service/infrastructure/persistence/typeorm-staff-service.entity';
 
-@Entity('users')
-@Index('IDX_users_email_active_unique', ['email'], {
+@Entity('user')
+@Index('IDX_user_email_active_unique', ['email'], {
   unique: true,
   where: '"deleted_at" IS NULL',
 })
