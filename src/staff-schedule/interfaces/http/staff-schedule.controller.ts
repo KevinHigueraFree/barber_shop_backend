@@ -4,16 +4,16 @@ import { UpdateStaffScheduleDto } from '@/staff-schedule/application/dtos/update
 import { CreateStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/create-staff-schedule.use-case';
 import { DeleteStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/delete-staff-schedule.use-case';
 import { GetStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/get-staff-schedule.use-case';
-import { ListStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/list-staff-schedule.use-case';
+import { ListStaffSchedulesUseCase } from '@/staff-schedule/application/use-cases/list-staff-schedules.use-case';
 import { UpdateStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/update-staff-schedule.use-case';
 import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
 
-@Controller('staff-schedule')
+@Controller('staff-schedules')
 export class StaffScheduleController {
   constructor(
     private readonly createUseCase: CreateStaffScheduleUseCase,
     private readonly getUseCase: GetStaffScheduleUseCase,
-    private readonly listUseCase: ListStaffScheduleUseCase,
+    private readonly listSchedulesUseCase: ListStaffSchedulesUseCase,
     private readonly updateUseCase: UpdateStaffScheduleUseCase,
     private readonly deleteUseCase: DeleteStaffScheduleUseCase,
   ) {}
@@ -25,7 +25,7 @@ export class StaffScheduleController {
 
   @Get()
   findAll() {
-    return this.listUseCase.execute();
+    return this.listSchedulesUseCase.execute();
   }
 
   @Get(':id')

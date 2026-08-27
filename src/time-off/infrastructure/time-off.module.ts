@@ -9,7 +9,7 @@ import { TIME_OFF_REPOSITORY } from '@/time-off/domain/repositories/time-off.rep
 // Casos de Uso de TimeOff
 import { CreateTimeOffUseCase } from '@/time-off/application/use-cases/create-time-off.use-case';
 import { GetTimeOffUseCase } from '@/time-off/application/use-cases/get-time-off.use-case';
-import { ListTimeOffUseCase } from '@/time-off/application/use-cases/list-time-off.use-case';
+import { ListTimeOffsUseCase } from '@/time-off/application/use-cases/list-time-offs.use-case';
 import { UpdateTimeOffUseCase } from '@/time-off/application/use-cases/update-time-off.use-case';
 import { DeleteTimeOffUseCase } from '@/time-off/application/use-cases/delete-time-off.use-case';
 
@@ -29,7 +29,7 @@ import { TimeOffController } from '@/time-off/interfaces/http/time-off.controlle
     // 1. Casos de Uso
     CreateTimeOffUseCase,
     GetTimeOffUseCase,
-    ListTimeOffUseCase,
+    ListTimeOffsUseCase,
     UpdateTimeOffUseCase,
     DeleteTimeOffUseCase,
 

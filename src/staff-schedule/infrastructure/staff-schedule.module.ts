@@ -4,7 +4,7 @@ import { UserModule } from '@/user/infrastructure/user.module';
 import { CreateStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/create-staff-schedule.use-case';
 import { DeleteStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/delete-staff-schedule.use-case';
 import { GetStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/get-staff-schedule.use-case';
-import { ListStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/list-staff-schedule.use-case';
+import { ListStaffSchedulesUseCase } from '@/staff-schedule/application/use-cases/list-staff-schedules.use-case';
 import { UpdateStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/update-staff-schedule.use-case';
 import { STAFF_SCHEDULE_REPOSITORY } from '@/staff-schedule/domain/repositories/staff-schedule.repository';
 import { TypeOrmStaffScheduleEntity } from '@/staff-schedule/infrastructure/persistence/typeorm-staff-schedule.entity';
@@ -17,7 +17,7 @@ import { StaffScheduleController } from '@/staff-schedule/interfaces/http/staff-
   providers: [
     CreateStaffScheduleUseCase,
     GetStaffScheduleUseCase,
-    ListStaffScheduleUseCase,
+    ListStaffSchedulesUseCase,
     UpdateStaffScheduleUseCase,
     DeleteStaffScheduleUseCase,
     {

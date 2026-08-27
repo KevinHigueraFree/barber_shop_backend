@@ -3,15 +3,15 @@ import { CreateStaffServiceDto } from '@/staff-service/application/dtos/create-s
 import { CreateStaffServiceUseCase } from '@/staff-service/application/use-cases/create-staff-service.use-case';
 import { DeleteStaffServiceUseCase } from '@/staff-service/application/use-cases/delete-staff-service.use-case';
 import { GetStaffServiceUseCase } from '@/staff-service/application/use-cases/get-staff-service.use-case';
-import { ListStaffServiceUseCase } from '@/staff-service/application/use-cases/list-staff-service.use-case';
+import { ListStaffServicesUseCase } from '@/staff-service/application/use-cases/list-staff-services.use-case';
 import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
 
-@Controller('staff-service')
+@Controller('staff-services')
 export class StaffServiceController {
   constructor(
     private readonly createUseCase: CreateStaffServiceUseCase,
     private readonly getUseCase: GetStaffServiceUseCase,
-    private readonly listUseCase: ListStaffServiceUseCase,
+    private readonly listStaffServicesUseCase: ListStaffServicesUseCase,
     private readonly deleteUseCase: DeleteStaffServiceUseCase,
   ) {}
 
@@ -22,7 +22,7 @@ export class StaffServiceController {
 
   @Get()
   findAll() {
-    return this.listUseCase.execute();
+    return this.listStaffServicesUseCase.execute();
   }
 
   @Get(':id')

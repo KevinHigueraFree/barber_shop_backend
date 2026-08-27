@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Put, Delete, Body, Param } from '@nestjs/common';
 import { CreateServiceUseCase } from '@/service/application/use-cases/create-service.use-case';
 import { GetServiceUseCase } from '@/service/application/use-cases/get-service.use-case';
-import { ListServicesUseCase } from '@/service/application/use-cases/list-service.use-case';
+import { ListServicesUseCase } from '@/service/application/use-cases/list-services.use-case';
 import { UpdateServiceUseCase } from '@/service/application/use-cases/update-service.use-case';
 import { DeleteServiceUseCase } from '@/service/application/use-cases/delete-service.use-case';
 import { CreateServiceDto } from '@/service/application/dtos/create-service.dto';

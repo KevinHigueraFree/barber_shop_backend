@@ -5,14 +5,14 @@ import { CreateServiceDto } from '@/service/application/dtos/create-service.dto'
 import { Service } from '@/service/domain/entities/service.entity';
 import { ConflictDomainException } from '@/shared/domain/exceptions/domain.exception';
 import { NewService } from '@/service/domain/entities/new-service';
-import { SchedulingSettingsService } from '@/scheduling-settings/application/services/scheduling-settings.service';
+import { SchedulingSettingService } from '@/scheduling-setting/application/services/scheduling-setting.service';
 
 @Injectable()
 export class CreateServiceUseCase {
   constructor(
     @Inject(SERVICE_REPOSITORY)
     private readonly serviceRepository: ServiceRepository,
-    private readonly schedulingSettingsService: SchedulingSettingsService,
+    private readonly schedulingSettingsService: SchedulingSettingService,
   ) {}
 
   async execute(dto: CreateServiceDto): Promise<Service> {

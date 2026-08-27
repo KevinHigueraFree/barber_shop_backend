@@ -8,14 +8,14 @@ import {
   EntityNotFoundException,
   ConflictDomainException,
 } from '@/shared/domain/exceptions/domain.exception';
-import { SchedulingSettingsService } from '@/scheduling-settings/application/services/scheduling-settings.service';
+import { SchedulingSettingService } from '@/scheduling-setting/application/services/scheduling-setting.service';
 
 @Injectable()
 export class UpdateServiceUseCase {
   constructor(
     @Inject(SERVICE_REPOSITORY)
     private readonly ServiceRepository: ServiceRepository,
-    private readonly schedulingSettingsService: SchedulingSettingsService,
+    private readonly schedulingSettingsService: SchedulingSettingService,
   ) {}
 
   async execute(id: number, dto: UpdateServiceDto): Promise<Service> {

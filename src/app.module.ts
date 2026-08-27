@@ -7,7 +7,8 @@ import { ServiceModule } from '@/service/infrastructure/service.module';
 import { TimeOffModule } from '@/time-off/infrastructure/time-off.module';
 import { StaffScheduleModule } from '@/staff-schedule/infrastructure/staff-schedule.module';
 import { StaffServiceModule } from '@/staff-service/infrastructure/staff-service.module';
-import { SchedulingSettingsModule } from '@/scheduling-settings/infrastructure/scheduling-settings.module';
+import { SchedulingSettingModule } from '@/scheduling-setting/infrastructure/scheduling-setting.module';
+import { TimeSlotModule } from '@/time-slot/infrastructure/time-slot.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { SchedulingSettingsModule } from '@/scheduling-settings/infrastructure/s
     TimeOffModule,
     StaffScheduleModule,
     StaffServiceModule,
-    SchedulingSettingsModule,
+    SchedulingSettingModule,
+    TimeSlotModule,
   ],
 })
 export class AppModule {}

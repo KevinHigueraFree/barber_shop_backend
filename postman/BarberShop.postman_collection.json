@@ -255,12 +255,12 @@
               "raw": "{\n  \"staffId\": 5,\n  \"reason\": \"Vacaciones de verano\",\n  \"startDatetime\": \"2026-06-01T09:00:00.000Z\",\n  \"endDatetime\": \"2026-06-07T18:00:00.000Z\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/time-off",
+              "raw": "{{baseUrl}}/time-offs",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-off"
+                "time-offs"
               ]
             },
             "description": "Crea una ausencia de personal."
@@ -273,12 +273,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/time-off",
+              "raw": "{{baseUrl}}/time-offs",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-off"
+                "time-offs"
               ]
             },
             "description": "Obtiene la lista de todas las ausencias."
@@ -291,12 +291,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/time-off/{{timeOffId}}",
+              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-off",
+                "time-offs",
                 "{{timeOffId}}"
               ]
             },
@@ -319,12 +319,12 @@
               "raw": "{\n  \"staffId\": 5,\n  \"reason\": \"Vacaciones de verano (actualizadas)\",\n  \"startDatetime\": \"2026-06-01T09:00:00.000Z\",\n  \"endDatetime\": \"2026-06-10T18:00:00.000Z\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/time-off/{{timeOffId}}",
+              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-off",
+                "time-offs",
                 "{{timeOffId}}"
               ]
             },
@@ -338,12 +338,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/time-off/{{timeOffId}}",
+              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-off",
+                "time-offs",
                 "{{timeOffId}}"
               ]
             },
@@ -371,12 +371,12 @@
               "raw": "{\n  \"staffId\": {{userId}},\n  \"serviceId\": {{serviceId}}\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/staff-service",
+              "raw": "{{baseUrl}}/staff-services",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-service"
+                "staff-services"
               ]
             },
             "description": "Asigna un servicio a un miembro del personal. Ambos IDs deben existir."
@@ -389,12 +389,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/staff-service",
+              "raw": "{{baseUrl}}/staff-services",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-service"
+                "staff-services"
               ]
             },
             "description": "Obtiene todas las asignaciones activas entre personal y servicios."
@@ -407,12 +407,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/staff-service/{{staffServiceId}}",
+              "raw": "{{baseUrl}}/staff-services/{{staffServiceId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-service",
+                "staff-services",
                 "{{staffServiceId}}"
               ]
             },
@@ -426,12 +426,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/staff-service/{{staffServiceId}}",
+              "raw": "{{baseUrl}}/staff-services/{{staffServiceId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-service",
+                "staff-services",
                 "{{staffServiceId}}"
               ]
             },
@@ -459,12 +459,12 @@
               "raw": "{\n  \"staffId\": {{userId}},\n  \"dayOfWeek\": \"2026-06-01\",\n  \"workStartTime\": \"09:00:00\",\n  \"workEndTime\": \"18:00:00\",\n  \"breakStartTime\": \"13:00:00\",\n  \"breakEndTime\": \"14:00:00\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/staff-schedule",
+              "raw": "{{baseUrl}}/staff-schedules",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-schedule"
+                "staff-schedules"
               ]
             },
             "description": "Crea un horario para un miembro del personal. El descanso es opcional, pero sus dos horarios deben enviarse juntos."
@@ -477,12 +477,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/staff-schedule",
+              "raw": "{{baseUrl}}/staff-schedules",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-schedule"
+                "staff-schedules"
               ]
             },
             "description": "Obtiene todos los horarios activos del personal."
@@ -495,12 +495,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/staff-schedule/{{staffScheduleId}}",
+              "raw": "{{baseUrl}}/staff-schedules/{{staffScheduleId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-schedule",
+                "staff-schedules",
                 "{{staffScheduleId}}"
               ]
             },
@@ -523,12 +523,12 @@
               "raw": "{\n  \"workStartTime\": \"10:00:00\",\n  \"workEndTime\": \"19:00:00\",\n  \"breakStartTime\": \"14:00:00\",\n  \"breakEndTime\": \"15:00:00\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/staff-schedule/{{staffScheduleId}}",
+              "raw": "{{baseUrl}}/staff-schedules/{{staffScheduleId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-schedule",
+                "staff-schedules",
                 "{{staffScheduleId}}"
               ]
             },
@@ -542,12 +542,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/staff-schedule/{{staffScheduleId}}",
+              "raw": "{{baseUrl}}/staff-schedules/{{staffScheduleId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "staff-schedule",
+                "staff-schedules",
                 "{{staffScheduleId}}"
               ]
             },
