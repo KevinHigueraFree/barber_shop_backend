@@ -7,7 +7,7 @@ import { STAFF_SCHEDULE_REPOSITORY } from '@/staff-schedule/domain/repositories/
 import type { UserRepository } from '@/user/domain/repositories/user.repository';
 import { USER_REPOSITORY } from '@/user/domain/repositories/user.repository';
 import {
-  ConflictDomainException,
+  ValidationException,
   EntityNotFoundException,
 } from '@/shared/domain/exceptions/domain.exception';
 
@@ -49,21 +49,19 @@ export class CreateStaffScheduleUseCase {
     breakEndTime?: string,
   ): void {
     if (workStartTime >= workEndTime) {
-      throw new ConflictDomainException(
-        'The work start time must be earlier than the work end time',
-      );
+      throw new ValidationException('The work start time must be earlier than the work end time');
     }
     if ((breakStartTime && !breakEndTime) || (!breakStartTime && breakEndTime)) {
-      throw new ConflictDomainException('Break start and end times must be provided together');
+      throw new ValidationException('Break start and end times must be provided together');
     }
     if (breakStartTime && breakEndTime) {
       if (breakStartTime >= breakEndTime) {
-        throw new ConflictDomainException(
+        throw new ValidationException(
           'The break start time must be earlier than the break end time',
         );
       }
       if (breakStartTime < workStartTime || breakEndTime > workEndTime) {
-        throw new ConflictDomainException('The break must be within working hours');
+        throw new ValidationException('The break must be within working hours');
       }
     }
   }

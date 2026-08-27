@@ -9,6 +9,7 @@ import {
 import { Request, Response } from 'express';
 import { QueryFailedError } from 'typeorm';
 import { DomainException } from '@/shared/domain/exceptions/domain.exception';
+import { ApiErrorResponse } from '@/shared/interfaces/api-response.interface';
 
 interface ErrorResponseBody {
   message?: string | string[];
@@ -46,7 +47,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       );
     }
 
-    response.status(status).json({
+    const responseBody: ApiErrorResponse = {
       success: false,
       error: errorBody,
       meta: {
@@ -54,7 +55,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
         path: request.url,
         statusCode: status,
       },
-    });
+    };
+
+    response.status(status).json(responseBody);
   }
 
   private getStatus(exception: unknown): number {
@@ -70,7 +73,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     return HttpStatus.INTERNAL_SERVER_ERROR;
   }
 
-  private buildError(exception: unknown) {
+  private buildError(exception: unknown): ApiErrorResponse['error'] {
     // Domain exceptions → custom error code
     if (exception instanceof DomainException) {
       const details: unknown = exception.details;
@@ -104,10 +107,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
         }
       }
 
-      const message =
+      const rawMessage =
         typeof body === 'string'
           ? body
           : ((body as ErrorResponseBody).message ?? exception.message);
+
+      const message = Array.isArray(rawMessage) ? rawMessage.join(', ') : rawMessage;
 
       return { code: 'HTTP_ERROR', message };
     }

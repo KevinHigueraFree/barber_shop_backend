@@ -9,6 +9,7 @@ import { TimeSlotRules } from '@/time-slot/domain/services/time-slot-rules';
 import {
   ConflictDomainException,
   EntityNotFoundException,
+  ValidationException,
 } from '@/shared/domain/exceptions/domain.exception';
 
 @Injectable()
@@ -28,7 +29,7 @@ export class UpdateTimeSlotUseCase {
     const startTime = TimeSlotRules.normalize(dto.startTime ?? existing.startTime);
     const endTime = TimeSlotRules.normalize(dto.endTime ?? existing.endTime);
     if (TimeSlotRules.toMinutes(startTime) >= TimeSlotRules.toMinutes(endTime)) {
-      throw new ConflictDomainException('The start time must be earlier than the end time');
+      throw new ValidationException('The start time must be earlier than the end time');
     }
     await this.schedulingSettingsService.assertValidSlotRange(
       TimeSlotRules.toMinutes(startTime),

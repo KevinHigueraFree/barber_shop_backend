@@ -8,7 +8,7 @@ import type { UserRepository } from '@/user/domain/repositories/user.repository'
 import { USER_REPOSITORY } from '@/user/domain/repositories/user.repository';
 import {
   EntityNotFoundException,
-  ConflictDomainException,
+  ValidationException,
 } from '@/shared/domain/exceptions/domain.exception';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class CreateTimeOffUseCase {
 
     // 2. Validar que la fecha de inicio no sea mayor o igual a la fecha de fin
     if (dto.startDatetime >= dto.endDatetime) {
-      throw new ConflictDomainException('The start datetime must be earlier than the end datetime');
+      throw new ValidationException('The start datetime must be earlier than the end datetime');
     }
 
     // 3. Crear la entidad de dominio para el repositorio de time_off

@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { SchedulingSettingService } from '@/scheduling-setting/application/services/scheduling-setting.service';
-import { ConflictDomainException } from '@/shared/domain/exceptions/domain.exception';
+import {
+  ConflictDomainException,
+  ValidationException,
+} from '@/shared/domain/exceptions/domain.exception';
 import { CreateTimeSlotDto } from '@/time-slot/application/dtos/create-time-slot.dto';
 import { NewTimeSlot } from '@/time-slot/domain/entities/new-time-slot';
 import { TimeSlot } from '@/time-slot/domain/entities/time-slot.entity';
@@ -31,7 +34,7 @@ export class CreateTimeSlotUseCase {
 
   private async validateRange(startTime: string, endTime: string): Promise<void> {
     if (TimeSlotRules.toMinutes(startTime) >= TimeSlotRules.toMinutes(endTime)) {
-      throw new ConflictDomainException('The start time must be earlier than the end time');
+      throw new ValidationException('The start time must be earlier than the end time');
     }
     await this.schedulingSettingsService.assertValidSlotRange(
       TimeSlotRules.toMinutes(startTime),

@@ -3,7 +3,7 @@ import { SCHEDULING_SETTING_REPOSITORY } from '@/scheduling-setting/domain/repos
 import type { SchedulingSettingRepository } from '@/scheduling-setting/domain/repositories/scheduling-setting.repository';
 import { SchedulingRules } from '@/scheduling-setting/domain/services/scheduling-rules';
 import {
-  ConflictDomainException,
+  ValidationException,
   EntityNotFoundException,
 } from '@/shared/domain/exceptions/domain.exception';
 
@@ -29,7 +29,7 @@ export class SchedulingSettingService {
   async assertDurationIsMultipleOfSlot(duration: number): Promise<void> {
     const slotMinutes = await this.getSlotDurationMinutes();
     if (!SchedulingRules.isDurationMultipleOf(duration, slotMinutes)) {
-      throw new ConflictDomainException(
+      throw new ValidationException(
         `Duration (${duration} min) must be a multiple of the slot duration (${slotMinutes} min)`,
       );
     }
@@ -38,7 +38,7 @@ export class SchedulingSettingService {
   async assertValidSlotRange(startMinutes: number, endMinutes: number): Promise<void> {
     const slotMinutes = await this.getSlotDurationMinutes();
     if (!SchedulingRules.isValidSlotRange(startMinutes, endMinutes, slotMinutes)) {
-      throw new ConflictDomainException(`Time slot range must be exactly ${slotMinutes} minutes`);
+      throw new ValidationException(`Time slot range must be exactly ${slotMinutes} minutes`);
     }
   }
 }
