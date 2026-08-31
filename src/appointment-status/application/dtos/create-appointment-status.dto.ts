@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  IsHexColor,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
 
 export class CreateAppointmentStatusDto {
   @ApiProperty({
@@ -27,14 +21,32 @@ export class CreateAppointmentStatusDto {
   description?: string | null;
 
   @ApiProperty({
-    description: 'HEX color code used to display the status (e.g. in the calendar)',
+    description:
+      'HEX color code used to display the status. It accepts #RGB, #RGBA, #RRGGBB or #RRGGBBAA. It will be stored as 6 or 8 characters without the "#" prefix.',
     example: '#3B82F6',
     required: false,
-    default: '#CCCCCC',
+    default: 'CCCCCC',
   })
   @IsOptional()
-  @IsHexColor({ message: 'colorCode must be a valid HEX color (e.g. #RRGGBB)' })
-  @MaxLength(7, { message: 'colorCode must have at most 7 characters (#RRGGBB)' })
+  @IsString({ message: 'colorCode must be a string' })
+  @Transform(({ value }: { value: unknown }) => {
+    if (typeof value !== 'string') return value;
+
+    let clean = value.replace(/^#/, '').trim();
+
+    if (clean.length === 3 || clean.length === 4) {
+      clean = clean
+        .split('')
+        .map((char) => char + char)
+        .join('');
+    }
+
+    return clean.toUpperCase();
+  })
+  @Matches(/^[0-9A-F]{6}$|^[0-9A-F]{8}$/, {
+    message:
+      'colorCode must be a valid HEX color code of 6 or 8 alphanumeric characters (without #)',
+  })
   colorCode?: string;
 
   @ApiProperty({

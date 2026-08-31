@@ -22,7 +22,8 @@
     "migration:revert": "npm run typeorm migration:revert",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "knip": "knip"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

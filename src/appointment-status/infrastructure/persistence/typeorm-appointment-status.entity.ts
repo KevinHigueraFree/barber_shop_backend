@@ -20,6 +20,10 @@ import {
  */
 @Entity('appointment_status')
 @Check('chk_appointment_status_name_not_empty', "TRIM(name) <> ''")
+@Check(
+  'chk_appointment_status_color_code_valid',
+  "color_code ~ '^[0-9a-fA-F]{6}$|^[0-9a-fA-F]{8}$'",
+)
 export class TypeOrmAppointmentStatusEntity {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -30,7 +34,7 @@ export class TypeOrmAppointmentStatusEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   description?: string | null;
 
-  @Column({ name: 'color_code', type: 'varchar', length: 7, default: '#CCCCCC' })
+  @Column({ name: 'color_code', type: 'varchar', length: 8, default: 'CCCCCC' })
   colorCode!: string;
 
   @Column({ name: 'is_enabled', type: 'boolean', default: true })
