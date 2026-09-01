@@ -10,6 +10,9 @@ import { StaffServiceModule } from '@/staff-service/infrastructure/staff-service
 import { SchedulingSettingModule } from '@/scheduling-setting/infrastructure/scheduling-setting.module';
 import { TimeSlotModule } from '@/time-slot/infrastructure/time-slot.module';
 import { AppointmentStatusModule } from '@/appointment-status/infrastructure/appointment-status.module';
+import { ModuleModule } from '@/module/infrastructure/module.module';
+import { ActionModule } from '@/action/infrastructure/action.module';
+import { PermissionModule } from '@/permission/infrastructure/permission.module';
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ import { AppointmentStatusModule } from '@/appointment-status/infrastructure/app
     SchedulingSettingModule,
     TimeSlotModule,
     AppointmentStatusModule,
+    ModuleModule,
+    ActionModule,
+    PermissionModule,
   ],
 })
 export class AppModule {}
