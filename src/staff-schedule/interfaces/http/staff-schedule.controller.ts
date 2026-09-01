@@ -6,7 +6,7 @@ import { DeleteStaffScheduleUseCase } from '@/staff-schedule/application/use-cas
 import { GetStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/get-staff-schedule.use-case';
 import { ListStaffSchedulesUseCase } from '@/staff-schedule/application/use-cases/list-staff-schedules.use-case';
 import { UpdateStaffScheduleUseCase } from '@/staff-schedule/application/use-cases/update-staff-schedule.use-case';
-import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 @Controller('staff-schedules')
 export class StaffScheduleController {

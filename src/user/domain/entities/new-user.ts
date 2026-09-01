@@ -5,5 +5,7 @@ export class NewUser {
     public password: string,
     public roleId: number,
     public isEnabled: boolean = true,
+    public isCustomer: boolean = true,
+    public isStaff: boolean = false,
   ) {}
 }

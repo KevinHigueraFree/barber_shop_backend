@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from '@/user/interfaces/http/user.controller';
-import { ValidIdGuard } from '@/user/interfaces/http/guards/valid-id.guard';
+import { ValidIdGuard } from '@/shared/interfaces/http/guards/valid-id.guard';
 import { CreateUserUseCase } from '@/user/application/use-cases/create-user.use-case';
 import { GetUserUseCase } from '@/user/application/use-cases/get-user.use-case';
 import { ListUsersUseCase } from '@/user/application/use-cases/list-users.use-case';

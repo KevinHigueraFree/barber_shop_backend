@@ -40,6 +40,12 @@ export class TypeOrmUserEntity {
   @Column({ default: true, name: 'is_enabled' })
   isEnabled!: boolean;
 
+  @Column({ name: 'is_customer', default: true })
+  isCustomer!: boolean;
+
+  @Column({ name: 'is_staff', default: false })
+  isStaff!: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 

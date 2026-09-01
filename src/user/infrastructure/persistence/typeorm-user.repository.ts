@@ -21,6 +21,8 @@ export class TypeOrmUserRepository implements UserRepository {
       password: newUser.password,
       roleId: newUser.roleId,
       isEnabled: newUser.isEnabled,
+      isCustomer: newUser.isCustomer,
+      isStaff: newUser.isStaff,
     });
     const saved = await this.repo.save(entity);
     return this.toDomain(saved);
@@ -49,6 +51,8 @@ export class TypeOrmUserRepository implements UserRepository {
       password: updateUser.password,
       roleId: updateUser.roleId,
       isEnabled: updateUser.isEnabled,
+      isCustomer: updateUser.isCustomer,
+      isStaff: updateUser.isStaff,
     });
     if (!entity) {
       throw new Error('User not found');
@@ -76,6 +80,8 @@ export class TypeOrmUserRepository implements UserRepository {
       entity.password,
       entity.roleId,
       entity.isEnabled,
+      entity.isCustomer,
+      entity.isStaff,
       entity.createdAt,
       entity.updatedAt,
       entity.deletedAt,

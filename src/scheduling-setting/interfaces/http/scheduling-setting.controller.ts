@@ -5,7 +5,7 @@ import { CreateSchedulingSettingUseCase } from '@/scheduling-setting/application
 import { ListSchedulingSettingsUseCase } from '@/scheduling-setting/application/use-cases/list-scheduling-settings.use-case';
 import { GetSchedulingSettingByIdUseCase } from '@/scheduling-setting/application/use-cases/get-scheduling-setting-by-id.use-case';
 import { UpdateSchedulingSettingUseCase } from '@/scheduling-setting/application/use-cases/update-scheduling-setting.use-case';
-import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 /**
  * Global scheduling settings controller.

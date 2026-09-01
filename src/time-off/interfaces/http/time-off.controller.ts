@@ -5,8 +5,8 @@ import { ListTimeOffsUseCase } from '@/time-off/application/use-cases/list-time-
 import { UpdateTimeOffUseCase } from '@/time-off/application/use-cases/update-time-off.use-case';
 import { DeleteTimeOffUseCase } from '@/time-off/application/use-cases/delete-time-off.use-case';
 import { CreateTimeOffDto } from '@/time-off/application/dtos/create-time-off.dto';
-import { UpdateTimeOffDto } from '@/time-off/application/dtos/update-time-off.dto'; // Asegúrate de tener este DTO creado
-import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe'; // O tu pipe genérico de IDs
+import { UpdateTimeOffDto } from '@/time-off/application/dtos/update-time-off.dto';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 @Controller('time-offs')
 export class TimeOffController {

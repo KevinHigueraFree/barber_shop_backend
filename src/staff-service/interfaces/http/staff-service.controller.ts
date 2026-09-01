@@ -4,7 +4,7 @@ import { CreateStaffServiceUseCase } from '@/staff-service/application/use-cases
 import { DeleteStaffServiceUseCase } from '@/staff-service/application/use-cases/delete-staff-service.use-case';
 import { GetStaffServiceUseCase } from '@/staff-service/application/use-cases/get-staff-service.use-case';
 import { ListStaffServicesUseCase } from '@/staff-service/application/use-cases/list-staff-services.use-case';
-import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 @Controller('staff-services')
 export class StaffServiceController {

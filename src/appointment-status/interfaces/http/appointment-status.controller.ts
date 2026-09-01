@@ -6,7 +6,7 @@ import { UpdateAppointmentStatusUseCase } from '@/appointment-status/application
 import { DeleteAppointmentStatusUseCase } from '@/appointment-status/application/use-cases/delete-appointment-status.use-case';
 import { CreateAppointmentStatusDto } from '@/appointment-status/application/dtos/create-appointment-status.dto';
 import { UpdateAppointmentStatusDto } from '@/appointment-status/application/dtos/update-appointment-status.dto';
-import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 /**
  * Appointment status catalog controller.

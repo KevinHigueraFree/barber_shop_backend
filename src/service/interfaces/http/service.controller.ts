@@ -6,7 +6,7 @@ import { UpdateServiceUseCase } from '@/service/application/use-cases/update-ser
 import { DeleteServiceUseCase } from '@/service/application/use-cases/delete-service.use-case';
 import { CreateServiceDto } from '@/service/application/dtos/create-service.dto';
 import { UpdateServiceDto } from '@/service/application/dtos/update-service.dto';
-import { ParseIdPipe } from '@/service/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 /**
  * Service controller.
