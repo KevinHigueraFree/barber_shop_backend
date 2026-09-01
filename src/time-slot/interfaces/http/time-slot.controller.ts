@@ -6,7 +6,7 @@ import { DeleteTimeSlotUseCase } from '@/time-slot/application/use-cases/delete-
 import { GetTimeSlotUseCase } from '@/time-slot/application/use-cases/get-time-slot.use-case';
 import { ListTimeSlotsUseCase } from '@/time-slot/application/use-cases/list-time-slots.use-case';
 import { UpdateTimeSlotUseCase } from '@/time-slot/application/use-cases/update-time-slot.use-case';
-import { ParseIdPipe } from '@/service/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 @Controller('time-slots')
 export class TimeSlotController {

@@ -6,7 +6,7 @@ import { UpdateUserUseCase } from '@/user/application/use-cases/update-user.use-
 import { DeleteUserUseCase } from '@/user/application/use-cases/delete-user.use-case';
 import { CreateUserDto } from '@/user/application/dtos/create-user.dto';
 import { UpdateUserDto } from '@/user/application/dtos/update-user.dto';
-import { ParseIdPipe } from '@/user/interfaces/http/pipes/parse-id.pipe';
+import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
 
 /**
  * User controller.

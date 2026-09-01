@@ -6,6 +6,8 @@ export class User {
     public password: string,
     public roleId: number,
     public isEnabled: boolean = true,
+    public isCustomer: boolean = true,
+    public isStaff: boolean = false,
     public readonly createdAt: Date = new Date(),
     public updatedAt: Date = new Date(),
     public deletedAt?: Date,

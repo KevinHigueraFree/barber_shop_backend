@@ -56,4 +56,24 @@ export class CreateUserDto {
   @IsOptional()
   @IsBoolean({ message: 'isEnabled must be a boolean' })
   isEnabled?: boolean;
+
+  @ApiProperty({
+    description: 'Indicates if the user is customer',
+    example: true,
+    required: false,
+    default: true,
+  })
+  @IsOptional()
+  @IsBoolean({ message: 'isCustomer must be a boolean' })
+  isCustomer?: boolean;
+
+  @ApiProperty({
+    description: 'Indicates if the user is staff',
+    example: true,
+    required: false,
+    default: true,
+  })
+  @IsOptional()
+  @IsBoolean({ message: 'isStaff must be a boolean' })
+  isStaff?: boolean;
 }

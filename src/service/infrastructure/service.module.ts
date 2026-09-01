@@ -7,7 +7,7 @@ import { GetServiceUseCase } from '@/service/application/use-cases/get-service.u
 import { ListServicesUseCase } from '@/service/application/use-cases/list-services.use-case';
 import { UpdateServiceUseCase } from '@/service/application/use-cases/update-service.use-case';
 import { DeleteServiceUseCase } from '@/service/application/use-cases/delete-service.use-case';
-import { ValidIdGuard } from '@/service/interfaces/http/guards/valid-id.guard';
+import { ValidIdGuard } from '@/shared/interfaces/http/guards/valid-id.guard';
 import { SERVICE_REPOSITORY } from '@/service/domain/repositories/service.repository';
 import { TypeOrmServiceRepository } from '@/service/infrastructure/persistence/typeorm-service.repository';
 import { SchedulingSettingModule } from '@/scheduling-setting/infrastructure/scheduling-setting.module';

@@ -25,6 +25,8 @@ export class CreateUserUseCase {
       dto.password,
       dto.roleId,
       dto.isEnabled ?? true,
+      dto.isCustomer ?? true,
+      dto.isStaff ?? false,
     );
     return this.userRepository.create(newUser);
   }

@@ -33,9 +33,11 @@ export class UpdateUserUseCase {
       id,
       dto.name ?? existing.name,
       dto.email ?? existing.email,
-      dto.password,
-      dto.roleId,
-      dto.isEnabled,
+      dto.password ?? existing.password,
+      dto.roleId ?? existing.roleId,
+      dto.isEnabled ?? existing.isEnabled,
+      dto.isCustomer ?? existing.isCustomer,
+      dto.isStaff ?? existing.isStaff,
     );
 
     return this.userRepository.update(updateUser);
