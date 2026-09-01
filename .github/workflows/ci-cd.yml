@@ -43,8 +43,9 @@ jobs:
           DB_HOST: localhost
           DB_PORT: 5432
           DB_USER: test
-          DB_PASSWORD: test
+          DB_PASS: test
           DB_NAME: barber_shop_test
+          DB_SSL: false
 
       - run: npm run test
       - run: npm run build
