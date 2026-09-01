@@ -27,22 +27,39 @@ The app reads these values in [src/config/database.config.ts](src/config/databas
 
 ## Docker setup
 
-### Start the app
+### Development
 
 ```bash
-# Build the image and run the container in the background
-docker compose up --build -d
+# Build the development image and start the container
+docker compose -f docker-compose.dev.yml up --build
 ```
+
+The development configuration uses `.env`, mounts the source code, and reloads the app when files change.
+
+### Production
+
+Create a `.env.production` file in the project root with the production database values, then run:
+
+```bash
+# Build the production image and run the container in the background
+docker compose -f docker-compose.prod.yml up --build -d
+```
+
+The production configuration uses [Dockerfile.prod](Dockerfile.prod) and `.env.production`.
+
+For Render, configure the service to use `Dockerfile.prod` as the Dockerfile path. Add the variables from `.env.production` manually in Render's environment settings.
 
 ### Verify it is running
 
 ```bash
 # Check running containers
-docker compose ps
+docker compose -f docker-compose.dev.yml ps
 
 # Follow logs
-docker compose logs -f app
+docker compose -f docker-compose.dev.yml logs -f app
 ```
+
+For production, replace `docker-compose.dev.yml` with `docker-compose.prod.yml` in these commands.
 
 The backend runs on:
 
@@ -53,13 +70,13 @@ http://localhost:3000
 ### Restart after code changes
 
 ```bash
-docker compose restart app
+docker compose -f docker-compose.dev.yml restart app
 ```
 
 If you change the Docker configuration or dependencies, rebuild:
 
 ```bash
-docker compose up --build -d
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 ### When the `.env` file changes
@@ -67,28 +84,30 @@ docker compose up --build -d
 Restart the container so the app loads the new values:
 
 ```bash
-docker compose restart app
+docker compose -f docker-compose.dev.yml restart app
 ```
 
 If you want to recreate everything from scratch:
 
 ```bash
-docker compose down
-docker compose up --build -d
+docker compose -f docker-compose.dev.yml down
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 ### Stop and remove containers
 
 ```bash
 # Stop without deleting
-docker compose stop
+docker compose -f docker-compose.dev.yml stop
 
 # Stop and remove containers
-docker compose down
+docker compose -f docker-compose.dev.yml down
 
 # Stop and remove containers + volumes
-docker compose down --volumes --remove-orphans
+docker compose -f docker-compose.dev.yml down --volumes --remove-orphans
 ```
+
+Use `docker-compose.prod.yml` instead when managing the production container.
 
 ## Run the app locally without Docker
 
@@ -147,6 +166,6 @@ npm run test:cov
 
 ## Notes
 
-- Docker uses the `.env` file from the project root via [docker-compose.yml](docker-compose.yml).
+- Development Docker uses [Dockerfile.dev](Dockerfile.dev) and `.env` via [docker-compose.dev.yml](docker-compose.dev.yml), while production uses [Dockerfile.prod](Dockerfile.prod) and `.env.production` via [docker-compose.prod.yml](docker-compose.prod.yml).
 - The app is configured with NestJS + TypeORM and PostgreSQL via [src/app.module.ts](src/app.module.ts).
-- For a clean reset after env or dependency changes, use `docker compose down --volumes --remove-orphans` followed by `docker compose up --build -d`.
+- For a clean development reset after env or dependency changes, use `docker compose -f docker-compose.dev.yml down --volumes --remove-orphans` followed by `docker compose -f docker-compose.dev.yml up --build`.
