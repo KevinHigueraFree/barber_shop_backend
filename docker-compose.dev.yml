@@ -1,18 +1,15 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-      target: development 
-    container_name: barber_container_b
+      dockerfile: Dockerfile.dev
+    container_name: barber_container_dev
     ports:
       - "3000:3000"
     env_file:
-      - .env # <--- Inyecta automáticamente las variables de entorno de Render
+      - .env
     volumes:
-      # 1. Monta todo tu proyecto local en el contenedor para detectar cambios de código
+      # 1. Rode the local proyecto on container to detect code changes
       - .:/usr/src/app
       # 2. Security and permformance
       # Don't let that the machine node_module rewrite the container node_modules 
@@ -21,5 +18,4 @@ services:
       - /usr/src/app/dist
     environment:
       - NODE_ENV=development
-    # Garantize automatic restart if the app fail as a result from  temporalsintax error 
     restart: unless-stopped
