@@ -13,7 +13,5 @@ export default new DataSource({
   database: process.env.DB_NAME ?? '',
   entities: ['src/**/infrastructure/persistence/*.entity.ts'],
   migrations: ['src/migrations/*.ts'],
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
 });
