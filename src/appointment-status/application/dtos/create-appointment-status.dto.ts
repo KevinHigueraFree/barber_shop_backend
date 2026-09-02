@@ -18,7 +18,7 @@ export class CreateAppointmentStatusDto {
   })
   @IsOptional()
   @IsString({ message: 'description must be a string' })
-  description?: string | null;
+  description?: string;
 
   @ApiProperty({
     description:

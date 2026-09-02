@@ -21,7 +21,7 @@ export class CreateAppointmentStatusUseCase {
 
     const newStatus = new NewAppointmentStatus(
       dto.name,
-      dto.description ?? null,
+      dto.description ?? '',
       dto.colorCode ?? '#CCCCCC',
       dto.isEnabled ?? true,
     );
