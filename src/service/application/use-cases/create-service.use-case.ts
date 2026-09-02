@@ -23,7 +23,7 @@ export class CreateServiceUseCase {
 
     await this.schedulingSettingsService.assertDurationIsMultipleOfSlot(dto.duration);
 
-    const newService = new NewService(dto.name, dto.description, dto.price, dto.duration);
+    const newService = new NewService(dto.name, dto.description ?? null, dto.price, dto.duration);
     return this.serviceRepository.create(newService);
   }
 }

@@ -49,6 +49,12 @@ export const permissionCatalog = [
   { id: 28, moduleId: 8, actionId: 2 },
   { id: 29, moduleId: 8, actionId: 3 },
   { id: 30, moduleId: 8, actionId: 4 },
+
+  // role
+  { id: 31, moduleId: 9, actionId: 1 },
+  { id: 32, moduleId: 9, actionId: 2 },
+  { id: 33, moduleId: 9, actionId: 3 },
+  { id: 34, moduleId: 9, actionId: 4 },
 ];
 
 export async function seedPermissions(dataSource: DataSource) {

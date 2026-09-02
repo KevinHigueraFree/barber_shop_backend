@@ -23,8 +23,8 @@ export class TypeOrmServiceEntity {
   @Column()
   name!: string;
 
-  @Column({ nullable: true })
-  description?: string;
+  @Column({ type: 'varchar', length: 250, nullable: true })
+  description!: string | null;
 
   @Column('decimal', { precision: 10, scale: 2, transformer: decimalTransformer })
   price!: number;

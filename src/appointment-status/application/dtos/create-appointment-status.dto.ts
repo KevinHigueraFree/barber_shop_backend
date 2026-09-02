@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, Matches, MaxLength } from 'class-validator';
 
 export class CreateAppointmentStatusDto {
   @ApiProperty({
@@ -18,6 +18,7 @@ export class CreateAppointmentStatusDto {
   })
   @IsOptional()
   @IsString({ message: 'description must be a string' })
+  @MaxLength(250, { message: 'description must not exceed 250 characters' })
   description?: string | null;
 
   @ApiProperty({

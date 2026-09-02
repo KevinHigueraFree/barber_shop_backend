@@ -10,6 +10,7 @@ export const moduleCatalog = [
   { id: 6, name: 'time-off' },
   { id: 7, name: 'time-slot' },
   { id: 8, name: 'user' },
+  { id: 9, name: 'role' },
 ];
 
 export async function seedModules(dataSource: DataSource) {
