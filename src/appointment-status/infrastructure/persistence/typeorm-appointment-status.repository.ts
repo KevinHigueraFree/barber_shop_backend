@@ -74,7 +74,7 @@ export class TypeOrmAppointmentStatusRepository implements AppointmentStatusRepo
     return new AppointmentStatus(
       entity.id,
       entity.name,
-      entity.description ?? '',
+      entity.description ?? null,
       entity.colorCode,
       entity.isEnabled,
       entity.createdAt,

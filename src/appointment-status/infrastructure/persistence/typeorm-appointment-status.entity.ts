@@ -31,8 +31,8 @@ export class TypeOrmAppointmentStatusEntity {
   @Column({ unique: true })
   name!: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  description?: string;
+  @Column({ type: 'varchar', length: 250, nullable: true })
+  description!: string | null;
 
   @Column({ name: 'color_code', type: 'varchar', length: 8, default: 'CCCCCC' })
   colorCode!: string;

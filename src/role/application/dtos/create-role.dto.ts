@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateRoleDto {
   @ApiProperty({
@@ -15,10 +15,10 @@ export class CreateRoleDto {
   @ApiProperty({
     description: 'Role description',
     example: 'Full access to the barber shop administration',
-    maxLength: 200,
+    maxLength: 250,
   })
-  @IsNotEmpty({ message: 'description must not be empty' })
+  @IsOptional()
   @IsString({ message: 'description must be a string' })
-  @MaxLength(200, { message: 'description must not exceed 200 characters' })
-  description!: string;
+  @MaxLength(250, { message: 'description must not exceed 250 characters' })
+  description?: string | null;
 }

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, MaxLength, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -19,7 +19,8 @@ export class CreateServiceDto {
   @IsOptional()
   @IsNotEmpty({ message: 'description must not be empty' })
   @IsString({ message: 'description must be a string' })
-  description?: string;
+  @MaxLength(250, { message: 'description must not exceed 250 characters' })
+  description?: string | null;
 
   @ApiProperty({
     description: 'Service price',

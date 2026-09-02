@@ -5,7 +5,7 @@ export class AppointmentStatus {
   constructor(
     public readonly id: number,
     public name: string,
-    public description: string,
+    public description: string | null,
     public colorCode: string,
     public isEnabled: boolean,
     public readonly createdAt: Date = new Date(),

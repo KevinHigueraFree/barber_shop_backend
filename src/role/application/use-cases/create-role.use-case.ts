@@ -18,6 +18,6 @@ export class CreateRoleUseCase {
       throw new ConflictDomainException('The role name is already registered');
     }
 
-    return this.roleRepository.create(new NewRole(dto.name, dto.description));
+    return this.roleRepository.create(new NewRole(dto.name, dto.description ?? null));
   }
 }

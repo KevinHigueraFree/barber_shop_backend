@@ -15,8 +15,8 @@ export class TypeOrmRoleEntity {
   @Column({ length: 45 })
   name!: string;
 
-  @Column({ length: 200 })
-  description!: string;
+  @Column({ type: 'varchar', length: 250, nullable: true })
+  description: string | null = null;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
