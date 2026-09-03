@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { TypeOrmModuleEntity } from '@/module/infrastructure/persistence/typeorm-module.entity';
+import { TypeOrmModuleEntity } from '@/modules/module/infrastructure/persistence/typeorm-module.entity';
 
 export const moduleCatalog = [
   { id: 1, name: 'appointment-status' },
