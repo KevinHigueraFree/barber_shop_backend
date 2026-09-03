@@ -7,6 +7,7 @@ import { UpdateRole } from '@/role/domain/entities/update-role';
 import { RoleRepository } from '@/role/domain/repositories/role.repository';
 import { TypeOrmRoleEntity } from '@/role/infrastructure/persistence/typeorm-role.entity';
 import { TypeOrmRolePermissionEntity } from '@/role-permission/infrastructure/persistence/typeorm-role-permission.entity';
+import { RoleWithPermissions } from '@/role/domain/read-models/role-with-permissions.read-model';
 
 @Injectable()
 export class TypeOrmRoleRepository implements RoleRepository {
@@ -66,6 +67,51 @@ export class TypeOrmRoleRepository implements RoleRepository {
       const deleted = await roleRepo.softRemove(entity);
       return this.toDomain(deleted);
     });
+  }
+
+  async findByIdWithPermissions(id: number): Promise<RoleWithPermissions | null> {
+    const role = await this.repo
+      .createQueryBuilder('role')
+      .innerJoinAndSelect('role.rolePermissions', 'rp')
+      .innerJoinAndSelect('rp.permission', 'permission')
+      .innerJoinAndSelect('permission.module', 'module')
+      .innerJoinAndSelect('permission.action', 'action')
+      .select([
+        'role.id',
+        'role.name',
+        'role.createdAt',
+        'role.updatedAt',
+        'rp.id',
+        'rp.permissionId',
+        'permission.moduleId',
+        'permission.actionId',
+        'module.name',
+        'action.name',
+      ])
+      .where('role.id = :id', { id })
+      .andWhere('role.deleted_at IS NULL')
+      .andWhere('rp.deleted_at IS NULL')
+      .andWhere('permission.deleted_at IS NULL')
+      .getOne();
+
+    if (!role) return null;
+
+    return {
+      id: role.id,
+      name: role.name,
+      createdAt: role.createdAt,
+      updatedAt: role.updatedAt,
+      rolePermissions: role.rolePermissions.map((rp) => ({
+        id: rp.id,
+        permission: {
+          id: rp.permissionId,
+          moduleId: rp.permission.moduleId,
+          moduleName: rp.permission.module.name,
+          actionId: rp.permission.actionId,
+          actionName: rp.permission.action.name,
+        },
+      })),
+    };
   }
 
   private toDomain(entity: TypeOrmRoleEntity): Role {
