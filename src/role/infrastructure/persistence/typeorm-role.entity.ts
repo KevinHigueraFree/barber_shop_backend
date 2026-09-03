@@ -30,5 +30,5 @@ export class TypeOrmRoleEntity {
   deletedAt?: Date;
 
   @OneToMany(() => TypeOrmRolePermissionEntity, (rp) => rp.role)
-  rolePermissions?: TypeOrmRolePermissionEntity[];
+  rolePermissions!: TypeOrmRolePermissionEntity[];
 }
