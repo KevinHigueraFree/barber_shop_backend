@@ -14,17 +14,42 @@ export const moduleCatalog = [
 ];
 
 export async function seedModules(dataSource: DataSource) {
-  const moduleRepo = dataSource.getRepository(TypeOrmModuleEntity);
+  await dataSource.transaction(async (manager) => {
+    const moduleRepo = manager.getRepository(TypeOrmModuleEntity);
 
-  const existingModules = await moduleRepo.find({
-    where: moduleCatalog.map(({ name }) => ({ name })),
-    select: ['id', 'name'],
+    for (const module of moduleCatalog) {
+      const existingByName = await moduleRepo.findOne({
+        where: { name: module.name },
+        withDeleted: true,
+      });
+      const existingById = await moduleRepo.findOne({
+        where: { id: module.id },
+        withDeleted: true,
+      });
+      const existing = existingByName ?? existingById;
+
+      if (existing && !existing.deletedAt && existing.name !== module.name) {
+        throw new Error(
+          `No se puede sembrar el módulo ${module.name}: el ID ${module.id} ya está ocupado por otro módulo activo.`,
+        );
+      }
+
+      if (existing?.deletedAt) {
+        await moduleRepo.restore(existing.id);
+      } else if (!existing) {
+        await manager.query('INSERT INTO "module" ("id", "name") VALUES ($1, $2)', [
+          module.id,
+          module.name,
+        ]);
+      }
+    }
+
+    await manager.query(`
+      SELECT setval(
+        pg_get_serial_sequence('"module"', 'id'),
+        COALESCE((SELECT MAX("id") FROM "module"), 1),
+        true
+      )
+    `);
   });
-
-  const existingNames = new Set(existingModules.map((module) => module.name));
-  const toCreate = moduleCatalog.filter(({ name }) => !existingNames.has(name));
-
-  if (toCreate.length > 0) {
-    await moduleRepo.insert(toCreate);
-  }
 }

@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository } from 'typeorm';
+import { DataSource, IsNull, Repository } from 'typeorm';
 import { NewRole } from '@/role/domain/entities/new-role';
 import { Role } from '@/role/domain/entities/role.entity';
 import { UpdateRole } from '@/role/domain/entities/update-role';
 import { RoleRepository } from '@/role/domain/repositories/role.repository';
 import { TypeOrmRoleEntity } from '@/role/infrastructure/persistence/typeorm-role.entity';
+import { TypeOrmRolePermissionEntity } from '@/role-permission/infrastructure/persistence/typeorm-role-permission.entity';
 
 @Injectable()
 export class TypeOrmRoleRepository implements RoleRepository {
   constructor(
     @InjectRepository(TypeOrmRoleEntity)
     private readonly repo: Repository<TypeOrmRoleEntity>,
+    private readonly dataSource: DataSource,
   ) {}
 
   async create(newRole: NewRole): Promise<Role> {
@@ -51,13 +53,19 @@ export class TypeOrmRoleRepository implements RoleRepository {
   }
 
   async deleteById(id: number): Promise<Role | null> {
-    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
-    if (!entity) {
-      return null;
-    }
+    return this.dataSource.transaction(async (manager) => {
+      const roleRepo = manager.getRepository(TypeOrmRoleEntity);
+      const rolePermissionRepo = manager.getRepository(TypeOrmRolePermissionEntity);
+      const entity = await roleRepo.findOneBy({ id, deletedAt: IsNull() });
 
-    const deleted = await this.repo.softRemove(entity);
-    return this.toDomain(deleted);
+      if (!entity) {
+        return null;
+      }
+
+      await rolePermissionRepo.softDelete({ roleId: id });
+      const deleted = await roleRepo.softRemove(entity);
+      return this.toDomain(deleted);
+    });
   }
 
   private toDomain(entity: TypeOrmRoleEntity): Role {

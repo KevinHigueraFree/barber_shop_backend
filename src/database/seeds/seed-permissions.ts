@@ -58,49 +58,81 @@ export const permissionCatalog = [
 ];
 
 export async function seedPermissions(dataSource: DataSource) {
-  const permissionRepo = dataSource.getRepository(TypeOrmPermissionEntity);
-  const moduleRepo = dataSource.getRepository(TypeOrmModuleEntity);
-  const actionRepo = dataSource.getRepository(TypeOrmActionEntity);
+  await dataSource.transaction(async (manager) => {
+    const permissionRepo = manager.getRepository(TypeOrmPermissionEntity);
+    const moduleRepo = manager.getRepository(TypeOrmModuleEntity);
+    const actionRepo = manager.getRepository(TypeOrmActionEntity);
 
-  const expectedModuleIds = [1, 2, 3, 4, 5, 6, 7, 8];
-  const expectedActionIds = [1, 2, 3, 4];
+    const expectedModuleIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const expectedActionIds = [1, 2, 3, 4];
 
-  const modules = await moduleRepo.find({
-    where: { id: In(expectedModuleIds) },
-    select: ['id'],
-  });
+    const modules = await moduleRepo.find({
+      where: { id: In(expectedModuleIds) },
+      select: ['id'],
+    });
 
-  const actions = await actionRepo.find({
-    where: { id: In(expectedActionIds) },
-    select: ['id'],
-  });
+    const actions = await actionRepo.find({
+      where: { id: In(expectedActionIds) },
+      select: ['id'],
+    });
 
-  const existingModuleIds = new Set(modules.map((m) => m.id));
-  const existingActionIds = new Set(actions.map((a) => a.id));
+    const existingModuleIds = new Set(modules.map((m) => m.id));
+    const existingActionIds = new Set(actions.map((a) => a.id));
 
-  const missingModules = expectedModuleIds.filter((id) => !existingModuleIds.has(id));
-  const missingActions = expectedActionIds.filter((id) => !existingActionIds.has(id));
+    const missingModules = expectedModuleIds.filter((id) => !existingModuleIds.has(id));
+    const missingActions = expectedActionIds.filter((id) => !existingActionIds.has(id));
 
-  if (missingModules.length > 0 || missingActions.length > 0) {
-    throw new Error(
-      `IDs inválidos para permisos. Módulos faltantes: ${missingModules.join(', ')}. Acciones faltantes: ${missingActions.join(', ')}`,
+    if (missingModules.length > 0 || missingActions.length > 0) {
+      throw new Error(
+        `IDs inválidos para permisos. Módulos faltantes: ${missingModules.join(', ')}. Acciones faltantes: ${missingActions.join(', ')}`,
+      );
+    }
+
+    const existingPermissions = await permissionRepo.find({
+      where: [
+        ...permissionCatalog.map(({ moduleId, actionId }) => ({ moduleId, actionId })),
+        { id: In(permissionCatalog.map(({ id }) => id)) },
+      ],
+      select: ['id', 'moduleId', 'actionId', 'deletedAt'],
+      withDeleted: true,
+    });
+
+    const existingPairs = new Set(
+      existingPermissions
+        .filter((permission) => !permission.deletedAt)
+        .map((permission) => `${permission.moduleId}:${permission.actionId}`),
     );
-  }
 
-  const existingPermissions = await permissionRepo.find({
-    where: permissionCatalog.map(({ moduleId, actionId }) => ({ moduleId, actionId })),
-    select: ['moduleId', 'actionId'],
+    const toCreate = permissionCatalog.filter(
+      ({ moduleId, actionId }) => !existingPairs.has(`${moduleId}:${actionId}`),
+    );
+
+    for (const permission of toCreate) {
+      const existing = existingPermissions.find(
+        (item) =>
+          item.id === permission.id ||
+          (item.moduleId === permission.moduleId && item.actionId === permission.actionId),
+      );
+
+      if (
+        existing &&
+        !existing.deletedAt &&
+        existing.actionId !== permission.actionId &&
+        existing.moduleId !== permission.moduleId
+      ) {
+        throw new Error(
+          `No se puede sembrar el permiso ${permission.id}: el ID ya está ocupado por otro permiso activo.`,
+        );
+      }
+
+      if (existing?.deletedAt) {
+        await permissionRepo.restore(existing.id);
+      } else if (!existing) {
+        await manager.query(
+          'INSERT INTO "permission" ("id", "module_id", "action_id") VALUES ($1, $2, $3)',
+          [permission.id, permission.moduleId, permission.actionId],
+        );
+      }
+    }
   });
-
-  const existingPairs = new Set(
-    existingPermissions.map((permission) => `${permission.moduleId}:${permission.actionId}`),
-  );
-
-  const toCreate = permissionCatalog.filter(
-    ({ moduleId, actionId }) => !existingPairs.has(`${moduleId}:${actionId}`),
-  );
-
-  if (toCreate.length > 0) {
-    await permissionRepo.insert(toCreate);
-  }
 }

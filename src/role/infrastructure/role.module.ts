@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateRoleUseCase } from '@/role/application/use-cases/create-role.use-case';
 import { DeleteRoleUseCase } from '@/role/application/use-cases/delete-role.use-case';
@@ -9,9 +9,10 @@ import { ROLE_REPOSITORY } from '@/role/domain/repositories/role.repository';
 import { TypeOrmRoleEntity } from '@/role/infrastructure/persistence/typeorm-role.entity';
 import { TypeOrmRoleRepository } from '@/role/infrastructure/persistence/typeorm-role.repository';
 import { RoleController } from '@/role/interfaces/http/role.controller';
+import { RolePermissionModule } from '@/role-permission/infrastructure/role-permission.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TypeOrmRoleEntity])],
+  imports: [TypeOrmModule.forFeature([TypeOrmRoleEntity]), forwardRef(() => RolePermissionModule)],
   controllers: [RoleController],
   providers: [
     CreateRoleUseCase,
@@ -24,5 +25,6 @@ import { RoleController } from '@/role/interfaces/http/role.controller';
       useClass: TypeOrmRoleRepository,
     },
   ],
+  exports: [ROLE_REPOSITORY],
 })
 export class RoleModule {}

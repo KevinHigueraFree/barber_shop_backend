@@ -10,17 +10,42 @@ export const actionCatalog = [
 ];
 
 export async function seedActions(dataSource: DataSource) {
-  const actionRepo = dataSource.getRepository(TypeOrmActionEntity);
+  await dataSource.transaction(async (manager) => {
+    const actionRepo = manager.getRepository(TypeOrmActionEntity);
 
-  const existingActions = await actionRepo.find({
-    where: actionCatalog.map(({ name }) => ({ name })),
-    select: ['id', 'name'],
+    for (const action of actionCatalog) {
+      const existingByName = await actionRepo.findOne({
+        where: { name: action.name },
+        withDeleted: true,
+      });
+      const existingById = await actionRepo.findOne({
+        where: { id: action.id },
+        withDeleted: true,
+      });
+      const existing = existingByName ?? existingById;
+
+      if (existing && !existing.deletedAt && existing.name !== action.name) {
+        throw new Error(
+          `No se puede sembrar la acción ${action.name}: el ID ${action.id} ya está ocupado por otra acción activa.`,
+        );
+      }
+
+      if (existing?.deletedAt) {
+        await actionRepo.restore(existing.id);
+      } else if (!existing) {
+        await manager.query('INSERT INTO "action" ("id", "name") VALUES ($1, $2)', [
+          action.id,
+          action.name,
+        ]);
+      }
+    }
+
+    await manager.query(`
+      SELECT setval(
+        pg_get_serial_sequence('"action"', 'id'),
+        COALESCE((SELECT MAX("id") FROM "action"), 1),
+        true
+      )
+    `);
   });
-
-  const existingNames = new Set(existingActions.map((action) => action.name));
-  const toCreate = actionCatalog.filter(({ name }) => !existingNames.has(name));
-
-  if (toCreate.length > 0) {
-    await actionRepo.insert(toCreate);
-  }
 }

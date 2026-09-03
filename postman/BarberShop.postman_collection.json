@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "BarberShop",
-    "description": "Colección de Postman para la API Barber Shop. Incluye los módulos de Users, Services, Time Off y Staff Service.",
+    "description": "Colección de Postman para la API Barber Shop. Incluye todos los endpoints disponibles de los módulos y tablas pivote.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -774,33 +774,6 @@
       "name": "Modules",
       "item": [
         {
-          "name": "Create Module",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Users\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/modules",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "modules"
-              ]
-            },
-            "description": "Crea un nuevo módulo. El nombre debe ser único entre los módulos activos."
-          },
-          "response": []
-        },
-        {
           "name": "List Modules",
           "request": {
             "method": "GET",
@@ -817,105 +790,12 @@
             "description": "Obtiene todos los módulos activos."
           },
           "response": []
-        },
-        {
-          "name": "Get Module by ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/modules/{{moduleId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "modules",
-                "{{moduleId}}"
-              ]
-            },
-            "description": "Obtiene un módulo por su ID."
-          },
-          "response": []
-        },
-        {
-          "name": "Update Module",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Users Management\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/modules/{{moduleId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "modules",
-                "{{moduleId}}"
-              ]
-            },
-            "description": "Actualiza un módulo existente por su ID."
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Module",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/modules/{{moduleId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "modules",
-                "{{moduleId}}"
-              ]
-            },
-            "description": "Elimina lógicamente un módulo por su ID."
-          },
-          "response": []
         }
       ]
     },
     {
       "name": "Actions",
       "item": [
-        {
-          "name": "Create Action",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Create\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/actions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "actions"
-              ]
-            },
-            "description": "Crea una acción global. El nombre debe ser único entre las acciones activas."
-          },
-          "response": []
-        },
         {
           "name": "List Actions",
           "request": {
@@ -933,80 +813,14 @@
             "description": "Obtiene todas las acciones activas."
           },
           "response": []
-        },
-        {
-          "name": "Get Action by ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/actions/{{actionId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "actions",
-                "{{actionId}}"
-              ]
-            },
-            "description": "Obtiene una acción por su ID."
-          },
-          "response": []
-        },
-        {
-          "name": "Update Action",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Read\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/actions/{{actionId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "actions",
-                "{{actionId}}"
-              ]
-            },
-            "description": "Actualiza una acción existente por su ID."
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Action",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/actions/{{actionId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "actions",
-                "{{actionId}}"
-              ]
-            },
-            "description": "Elimina lógicamente una acción por su ID."
-          },
-          "response": []
         }
       ]
     },
     {
-      "name": "Permissions",
+      "name": "Roles",
       "item": [
         {
-          "name": "Create Permission",
+          "name": "Create Role",
           "request": {
             "method": "POST",
             "header": [
@@ -1017,21 +831,198 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"moduleId\": {{moduleId}},\n  \"actionId\": {{actionId}}\n}"
+              "raw": "{\n  \"name\": \"Administrator\",\n  \"description\": \"Full access to the barber shop administration\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/permissions",
+              "raw": "{{baseUrl}}/roles",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "permissions"
+                "roles"
               ]
             },
-            "description": "Crea una relación entre un módulo y una acción. La combinación moduleId + actionId debe ser única entre los registros activos."
+            "description": "Crea un rol. La descripción es opcional y admite hasta 250 caracteres."
           },
           "response": []
         },
+        {
+          "name": "List Roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ]
+            },
+            "description": "Obtiene todos los roles activos."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Role by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/roles/{{roleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "{{roleId}}"
+              ]
+            },
+            "description": "Obtiene un rol por su ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Manager\",\n  \"description\": \"Barber shop manager\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/roles/{{roleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "{{roleId}}"
+              ]
+            },
+            "description": "Actualiza un rol existente por su ID. Todos los campos son opcionales."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/roles/{{roleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "{{roleId}}"
+              ]
+            },
+            "description": "Elimina lógicamente un rol por su ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Role Permissions",
+      "item": [
+        {
+          "name": "Create Role Permission",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleId\": {{roleId}},\n  \"permissionId\": {{permissionId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/role-permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "role-permissions"
+              ]
+            },
+            "description": "Asigna un permiso a un rol. La combinación roleId + permissionId no debe repetirse."
+          },
+          "response": []
+        },
+        {
+          "name": "List Role Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/role-permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "role-permissions"
+              ]
+            },
+            "description": "Obtiene todas las asignaciones activas entre roles y permisos."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Role Permission by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/role-permissions/{{rolePermissionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "role-permissions",
+                "{{rolePermissionId}}"
+              ]
+            },
+            "description": "Obtiene una asignación de rol y permiso por su ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Role Permission",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/role-permissions/{{rolePermissionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "role-permissions",
+                "{{rolePermissionId}}"
+              ]
+            },
+            "description": "Elimina lógicamente una asignación. Las tablas pivote no tienen endpoint de actualización."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Permissions",
+      "item": [
         {
           "name": "List Permissions",
           "request": {
@@ -1047,44 +1038,6 @@
               ]
             },
             "description": "Obtiene todas las relaciones de permisos activas."
-          },
-          "response": []
-        },
-        {
-          "name": "Get Permission by ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/permissions/{{permissionId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "permissions",
-                "{{permissionId}}"
-              ]
-            },
-            "description": "Obtiene una relación de permiso por su ID."
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Permission",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/permissions/{{permissionId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "permissions",
-                "{{permissionId}}"
-              ]
-            },
-            "description": "Elimina lógicamente una relación de permiso por su ID."
           },
           "response": []
         }
