@@ -1,0 +1,68 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateStaffScheduleDto } from '@/modules/staff-schedule/application/dtos/create-staff-schedule.dto';
+import { NewStaffSchedule } from '@/modules/staff-schedule/domain/entities/new-staff-schedule';
+import { StaffSchedule } from '@/modules/staff-schedule/domain/entities/staff-schedule.entity';
+import type { StaffScheduleRepository } from '@/modules/staff-schedule/domain/repositories/staff-schedule.repository';
+import { STAFF_SCHEDULE_REPOSITORY } from '@/modules/staff-schedule/domain/repositories/staff-schedule.repository';
+import type { UserRepository } from '@/modules/user/domain/repositories/user.repository';
+import { USER_REPOSITORY } from '@/modules/user/domain/repositories/user.repository';
+import {
+  ValidationException,
+  EntityNotFoundException,
+} from '@/shared/domain/exceptions/domain.exception';
+
+@Injectable()
+export class CreateStaffScheduleUseCase {
+  constructor(
+    @Inject(STAFF_SCHEDULE_REPOSITORY)
+    private readonly scheduleRepository: StaffScheduleRepository,
+    @Inject(USER_REPOSITORY)
+    private readonly userRepository: UserRepository,
+  ) {}
+
+  async execute(dto: CreateStaffScheduleDto): Promise<StaffSchedule> {
+    await this.ensureStaffExists(dto.staffId);
+    this.validateTimes(dto.workStartTime, dto.workEndTime, dto.breakStartTime, dto.breakEndTime);
+
+    return this.scheduleRepository.create(
+      new NewStaffSchedule(
+        dto.staffId,
+        dto.dayOfWeek,
+        dto.workStartTime,
+        dto.workEndTime,
+        dto.breakStartTime ?? null,
+        dto.breakEndTime ?? null,
+      ),
+    );
+  }
+
+  private async ensureStaffExists(staffId: number): Promise<void> {
+    if (!(await this.userRepository.findById(staffId))) {
+      throw new EntityNotFoundException('User', staffId);
+    }
+  }
+
+  private validateTimes(
+    workStartTime: string,
+    workEndTime: string,
+    breakStartTime?: string,
+    breakEndTime?: string,
+  ): void {
+    if (workStartTime >= workEndTime) {
+      throw new ValidationException('The work start time must be earlier than the work end time');
+    }
+    if ((breakStartTime && !breakEndTime) || (!breakStartTime && breakEndTime)) {
+      throw new ValidationException('Break start and end times must be provided together');
+    }
+    if (breakStartTime && breakEndTime) {
+      if (breakStartTime >= breakEndTime) {
+        throw new ValidationException(
+          'The break start time must be earlier than the break end time',
+        );
+      }
+      if (breakStartTime < workStartTime || breakEndTime > workEndTime) {
+        throw new ValidationException('The break must be within working hours');
+      }
+    }
+  }
+}

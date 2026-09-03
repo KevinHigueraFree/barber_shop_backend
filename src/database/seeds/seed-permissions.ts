@@ -1,7 +1,7 @@
 import { DataSource, In } from 'typeorm';
-import { TypeOrmPermissionEntity } from '@/permission/infrastructure/persistence/typeorm-permission.entity';
-import { TypeOrmModuleEntity } from '@/module/infrastructure/persistence/typeorm-module.entity';
-import { TypeOrmActionEntity } from '@/action/infrastructure/persistence/typeorm-action.entity';
+import { TypeOrmPermissionEntity } from '@/modules/permission/infrastructure/persistence/typeorm-permission.entity';
+import { TypeOrmModuleEntity } from '@/modules/module/infrastructure/persistence/typeorm-module.entity';
+import { TypeOrmActionEntity } from '@/modules/action/infrastructure/persistence/typeorm-action.entity';
 
 export const permissionCatalog = [
   // appointment-status

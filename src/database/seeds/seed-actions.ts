@@ -1,4 +1,4 @@
-import { TypeOrmActionEntity } from '@/action/infrastructure/persistence/typeorm-action.entity';
+import { TypeOrmActionEntity } from '@/modules/action/infrastructure/persistence/typeorm-action.entity';
 import { DataSource } from 'typeorm';
 
 export const actionCatalog = [

@@ -1,0 +1,83 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TypeOrmServiceEntity } from '@/modules/service/infrastructure/persistence/typeorm-service.entity';
+import { IsNull, Repository } from 'typeorm';
+import { NewService } from '@/modules/service/domain/entities/new-service';
+import { Service } from '@/modules/service/domain/entities/service.entity';
+import { UpdateService } from '@/modules/service/domain/entities/update-service';
+import { ServiceRepository } from '@/modules/service/domain/repositories/service.repository';
+
+@Injectable()
+export class TypeOrmServiceRepository implements ServiceRepository {
+  constructor(
+    @InjectRepository(TypeOrmServiceEntity)
+    private readonly repo: Repository<TypeOrmServiceEntity>,
+  ) {}
+
+  async create(newService: NewService): Promise<Service> {
+    const entity = this.repo.create(newService); // without id: DB generates it
+    const saved = await this.repo.save(entity);
+    return this.toDomain(saved);
+  }
+
+  async findById(id: number): Promise<Service | null> {
+    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
+    return entity ? this.toDomain(entity) : null;
+  }
+
+  async findByName(name: string): Promise<Service | null> {
+    const entity = await this.repo.findOneBy({ name, deletedAt: IsNull() });
+    return entity ? this.toDomain(entity) : null;
+  }
+
+  async findAll(): Promise<Service[]> {
+    const entities = await this.repo.find({ where: { deletedAt: IsNull() } });
+    return entities.map((e) => this.toDomain(e));
+  }
+
+  async update(updateService: UpdateService): Promise<Service> {
+    const entity = await this.repo.preload({
+      id: updateService.id,
+      name: updateService.name,
+      description: updateService.description,
+      price: updateService.price,
+      duration: updateService.duration,
+    });
+    if (!entity) {
+      throw new Error('Service not found');
+    }
+    const saved = await this.repo.save(entity);
+    return this.toDomain(saved);
+  }
+  async deleteById(id: number): Promise<Service | null> {
+    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
+
+    if (!entity) {
+      return null;
+    }
+
+    const deleted = await this.repo.softRemove(entity);
+    return this.toDomain(deleted);
+  }
+
+  async existsAny(): Promise<boolean> {
+    const entity = await this.repo.findOne({
+      where: { deletedAt: IsNull() },
+      select: ['id'], // selecciona solo la columna mínima
+    });
+    return entity !== null;
+  }
+
+  private toDomain(entity: TypeOrmServiceEntity): Service {
+    return new Service(
+      entity.id,
+      entity.name,
+      entity.description,
+      entity.price,
+      entity.duration,
+      entity.createdAt,
+      entity.updatedAt,
+      entity.deletedAt ?? null,
+    );
+  }
+}
