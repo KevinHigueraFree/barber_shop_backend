@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
-import { NewPermission } from '@/permission/domain/entities/new-permission';
 import { Permission } from '@/permission/domain/entities/permission.entity';
 import { PermissionRepository } from '@/permission/domain/repositories/permission.repository';
 import { TypeOrmPermissionEntity } from '@/permission/infrastructure/persistence/typeorm-permission.entity';
@@ -12,12 +11,6 @@ export class TypeOrmPermissionRepository implements PermissionRepository {
     @InjectRepository(TypeOrmPermissionEntity)
     private readonly repo: Repository<TypeOrmPermissionEntity>,
   ) {}
-
-  async create(permission: NewPermission): Promise<Permission> {
-    const entity = this.repo.create(permission);
-    const saved = await this.repo.save(entity);
-    return this.toDomain(saved);
-  }
 
   async findById(id: number): Promise<Permission | null> {
     const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
@@ -38,23 +31,12 @@ export class TypeOrmPermissionRepository implements PermissionRepository {
     return entities.map((entity) => this.toDomain(entity));
   }
 
-  async deleteById(id: number): Promise<Permission | null> {
-    const entity = await this.repo.findOneBy({ id, deletedAt: IsNull() });
-    if (!entity) {
-      return null;
-    }
-
-    const deleted = await this.repo.softRemove(entity);
-    return this.toDomain(deleted);
-  }
-
   private toDomain(entity: TypeOrmPermissionEntity): Permission {
     return new Permission(
       entity.id,
       entity.moduleId,
       entity.actionId,
       entity.createdAt,
-      entity.updatedAt,
       entity.deletedAt ?? null,
     );
   }

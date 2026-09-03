@@ -6,7 +6,6 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { TypeOrmActionEntity } from '@/action/infrastructure/persistence/typeorm-action.entity';
 import { TypeOrmModuleEntity } from '@/module/infrastructure/persistence/typeorm-module.entity';
@@ -25,17 +24,14 @@ export class TypeOrmPermissionEntity {
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt!: Date;
-
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
 
-  @ManyToOne(() => TypeOrmModuleEntity, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => TypeOrmModuleEntity, { nullable: false, onDelete: 'RESTRICT' })
   @JoinColumn({ name: 'module_id' })
   module!: TypeOrmModuleEntity;
 
-  @ManyToOne(() => TypeOrmActionEntity, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => TypeOrmActionEntity, { nullable: false, onDelete: 'RESTRICT' })
   @JoinColumn({ name: 'action_id' })
   action!: TypeOrmActionEntity;
 }
