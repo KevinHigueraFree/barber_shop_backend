@@ -1,4 +1,5 @@
 import { TypeOrmRolePermissionEntity } from '@/modules/role-permission/infrastructure/persistence/typeorm-role-permission.entity';
+import { TypeOrmUserEntity } from '@/modules/user/infrastructure/persistence/typeorm-user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -31,4 +32,7 @@ export class TypeOrmRoleEntity {
 
   @OneToMany(() => TypeOrmRolePermissionEntity, (rp) => rp.role)
   rolePermissions!: TypeOrmRolePermissionEntity[];
+
+  @OneToMany(() => TypeOrmUserEntity, (user) => user.role)
+  user!: TypeOrmUserEntity[];
 }

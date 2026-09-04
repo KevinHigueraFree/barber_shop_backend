@@ -15,6 +15,7 @@ import { ActionModule } from '@/modules/action/infrastructure/action.module';
 import { PermissionModule } from '@/modules/permission/infrastructure/permission.module';
 import { RoleModule } from '@/modules/role/infrastructure/role.module';
 import { RolePermissionModule } from '@/modules/role-permission/infrastructure/role-permission.module';
+import { AppointmentModule } from '@/modules/appointment/infrastructure/appointment.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { RolePermissionModule } from '@/modules/role-permission/infrastructure/r
     PermissionModule,
     RoleModule,
     RolePermissionModule,
+    AppointmentModule,
   ],
 })
 export class AppModule {}

@@ -8,12 +8,18 @@ import {
   EntityNotFoundException,
   ConflictDomainException,
 } from '@/shared/domain/exceptions/domain.exception';
+import {
+  ROLE_REPOSITORY,
+  type RoleRepository,
+} from '@/modules/role/domain/repositories/role.repository';
 
 @Injectable()
 export class UpdateUserUseCase {
   constructor(
     @Inject(USER_REPOSITORY)
     private readonly userRepository: UserRepository,
+    @Inject(ROLE_REPOSITORY)
+    private readonly roleRepository: RoleRepository,
   ) {}
 
   async execute(id: number, dto: UpdateUserDto): Promise<User> {
@@ -29,12 +35,19 @@ export class UpdateUserUseCase {
       }
     }
 
+    const roleId = dto.roleId;
+    if (roleId) {
+      const existRole = await this.roleRepository.findById(roleId);
+      if (!existRole) {
+        throw new EntityNotFoundException('role', roleId);
+      }
+    }
     const updateUser = new UpdateUser(
       id,
       dto.name ?? existing.name,
       dto.email ?? existing.email,
       dto.password ?? existing.password,
-      dto.roleId ?? existing.roleId,
+      roleId ?? existing.roleId,
       dto.isEnabled ?? existing.isEnabled,
       dto.isCustomer ?? existing.isCustomer,
       dto.isStaff ?? existing.isStaff,
