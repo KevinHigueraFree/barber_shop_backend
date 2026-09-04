@@ -32,11 +32,11 @@ export class CreateRolePermissionUseCase {
 
   async execute(dto: CreateRolePermissionDto): Promise<RolePermission> {
     if (!(await this.roleRepository.findById(dto.roleId))) {
-      throw new EntityNotFoundException('role', dto.roleId);
+      throw new EntityNotFoundException('Role', dto.roleId);
     }
 
     if (!(await this.permissionRepository.findById(dto.permissionId))) {
-      throw new EntityNotFoundException('permission', dto.permissionId);
+      throw new EntityNotFoundException('Permission', dto.permissionId);
     }
 
     const existing = await this.rolePermissionRepository.findByRoleAndPermission(

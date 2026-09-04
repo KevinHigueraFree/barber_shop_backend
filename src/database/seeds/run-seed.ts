@@ -2,6 +2,7 @@ import dataSource from '@/config/typeorm.config';
 import { seedModules } from './seed-modules';
 import { seedActions } from './seed-actions';
 import { seedPermissions } from './seed-permissions';
+import { seedAppointmentStatuses } from './seed-appointment-statuses';
 
 async function main() {
   await dataSource.initialize();
@@ -14,6 +15,9 @@ async function main() {
 
   await seedPermissions(dataSource);
   console.log('Seed de permissions ejecutado correctamente');
+
+  await seedAppointmentStatuses(dataSource);
+  console.log('Appointment statuses seed executed successfully');
 
   await dataSource.destroy();
 }

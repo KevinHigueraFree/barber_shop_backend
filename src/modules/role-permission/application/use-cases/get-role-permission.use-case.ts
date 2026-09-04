@@ -16,7 +16,7 @@ export class GetRolePermissionUseCase {
   async execute(id: number): Promise<RolePermission> {
     const rolePermission = await this.rolePermissionRepository.findById(id);
     if (!rolePermission) {
-      throw new EntityNotFoundException('role permission', id);
+      throw new EntityNotFoundException('RolePermission', id);
     }
 
     return rolePermission;

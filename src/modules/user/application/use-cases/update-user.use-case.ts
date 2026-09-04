@@ -39,7 +39,7 @@ export class UpdateUserUseCase {
     if (roleId) {
       const existRole = await this.roleRepository.findById(roleId);
       if (!existRole) {
-        throw new EntityNotFoundException('role', roleId);
+        throw new EntityNotFoundException('Role', roleId);
       }
     }
     const updateUser = new UpdateUser(

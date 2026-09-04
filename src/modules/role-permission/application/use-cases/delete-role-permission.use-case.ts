@@ -16,7 +16,7 @@ export class DeleteRolePermissionUseCase {
   async execute(id: number): Promise<RolePermission> {
     const deleted = await this.rolePermissionRepository.deleteById(id);
     if (!deleted) {
-      throw new EntityNotFoundException('role permission', id);
+      throw new EntityNotFoundException('RolePermission', id);
     }
 
     return deleted;
