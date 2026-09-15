@@ -11,6 +11,12 @@ export const moduleCatalog = [
   { id: 7, name: 'time-slot' },
   { id: 8, name: 'user' },
   { id: 9, name: 'role' },
+  { id: 10, name: 'appointment' },
+  { id: 11, name: 'appointment-service' },
+  { id: 12, name: 'role-permission' },
+  { id: 13, name: 'permission' },
+  { id: 14, name: 'module' },
+  { id: 15, name: 'action' },
 ];
 
 export async function seedModules(dataSource: DataSource) {
