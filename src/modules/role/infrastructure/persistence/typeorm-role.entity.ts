@@ -34,5 +34,5 @@ export class TypeOrmRoleEntity {
   rolePermissions!: TypeOrmRolePermissionEntity[];
 
   @OneToMany(() => TypeOrmUserEntity, (user) => user.role)
-  user!: TypeOrmUserEntity[];
+  users!: TypeOrmUserEntity[];
 }

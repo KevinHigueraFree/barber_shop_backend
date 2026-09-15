@@ -5,11 +5,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { TypeOrmAppointmentStatusEntity } from '@/modules/appointment-status/infrastructure/persistence/typeorm-appointment-status.entity';
 import { TypeOrmUserEntity } from '@/modules/user/infrastructure/persistence/typeorm-user.entity';
+import { TypeOrmAppointmentServiceEntity } from '@/modules/appointment-service/infrastructure/persistence/typeorm-appointment-service.entity';
 
 @Entity('appointment')
 export class TypeOrmAppointmentEntity {
@@ -36,6 +38,9 @@ export class TypeOrmAppointmentEntity {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
+
+  @OneToMany(() => TypeOrmAppointmentServiceEntity, (as) => as.appointment)
+  appointmentServices!: TypeOrmAppointmentServiceEntity[];
 
   @ManyToOne(() => TypeOrmUserEntity, { onDelete: 'RESTRICT' })
   @JoinColumn({ name: 'customer_id' })

@@ -11,6 +11,7 @@ import { ListAppointmentsUseCase } from '@/modules/appointment/application/use-c
 import { DeleteAppointmentUseCase } from '@/modules/appointment/application/use-cases/delete-appointment.use-case';
 import { UpdateAppointmentStatusUseCase } from '@/modules/appointment/application/use-cases/update-appointment-status.use-case';
 import { AppointmentController } from '@/modules/appointment/interfaces/http/appointment.controller';
+import { GetAppointmentWithServiceUseCase } from '@/modules/appointment/application/use-cases/get-appointment-with-services.use-case';
 
 @Module({
   imports: [
@@ -25,7 +26,9 @@ import { AppointmentController } from '@/modules/appointment/interfaces/http/app
     ListAppointmentsUseCase,
     DeleteAppointmentUseCase,
     UpdateAppointmentStatusUseCase,
+    GetAppointmentWithServiceUseCase,
     { provide: APPOINTMENT_REPOSITORY, useClass: TypeOrmAppointmentRepository },
   ],
+  exports: [APPOINTMENT_REPOSITORY],
 })
 export class AppointmentModule {}

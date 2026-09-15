@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "BarberShop",
-    "description": "Colección de Postman para la API Barber Shop. Incluye todos los endpoints disponibles de los módulos y tablas pivote.",
+    "description": "Colección de Postman actualizada para la API Barber Shop. Refleja los endpoints reales del backend actual.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -20,7 +20,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Juan Pérez\",\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"password123\",\n  \"roleId\": 3,\n  \"isEnabled\": true\n}"
+              "raw": "{\n  \"name\": \"Juan Pérez\",\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"Password123!\",\n  \"roleId\": 2,\n  \"isEnabled\": true\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/users",
@@ -31,7 +31,7 @@
                 "users"
               ]
             },
-            "description": "Crea un nuevo usuario."
+            "description": "Crea un usuario."
           },
           "response": []
         },
@@ -49,7 +49,7 @@
                 "users"
               ]
             },
-            "description": "Obtiene la lista de todos los usuarios."
+            "description": "Lista todos los usuarios."
           },
           "response": []
         },
@@ -84,7 +84,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Juan Pérez Actualizado\",\n  \"email\": \"juan.actualizado@example.com\",\n  \"password\": \"newpassword123\",\n  \"roleId\": 2,\n  \"isEnabled\": true\n}"
+              "raw": "{\n  \"name\": \"Juan Pérez Actualizado\",\n  \"email\": \"juan.actualizado@example.com\",\n  \"password\": \"NewPassword123!\",\n  \"roleId\": 1,\n  \"isEnabled\": true\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/users/{{userId}}",
@@ -96,7 +96,7 @@
                 "{{userId}}"
               ]
             },
-            "description": "Actualiza un usuario existente por su ID."
+            "description": "Actualiza un usuario por ID."
           },
           "response": []
         },
@@ -115,7 +115,7 @@
                 "{{userId}}"
               ]
             },
-            "description": "Elimina un usuario por su ID."
+            "description": "Elimina un usuario por ID."
           },
           "response": []
         }
@@ -136,7 +136,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Top Face\",\n  \"description\": \"Top Face is a new cut\",\n  \"price\": 102.33,\n  \"duration\": 60\n}"
+              "raw": "{\n  \"name\": \"Corte Clásico\",\n  \"description\": \"Corte tradicional con acabados premium\",\n  \"price\": 45.5,\n  \"duration\": 30\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/services",
@@ -147,7 +147,7 @@
                 "services"
               ]
             },
-            "description": "Crea un nuevo servicio. El campo duration es obligatorio (1-120 minutos)."
+            "description": "Crea un servicio."
           },
           "response": []
         },
@@ -165,7 +165,7 @@
                 "services"
               ]
             },
-            "description": "Obtiene la lista de todos los servicios."
+            "description": "Lista servicios."
           },
           "response": []
         },
@@ -184,7 +184,7 @@
                 "{{serviceId}}"
               ]
             },
-            "description": "Obtiene un servicio por su ID."
+            "description": "Obtiene un servicio por ID."
           },
           "response": []
         },
@@ -200,7 +200,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Top Face Premium\",\n  \"description\": \"Top Face Premium with extra care\",\n  \"price\": 150.00,\n  \"duration\": 90\n}"
+              "raw": "{\n  \"name\": \"Corte Premium\",\n  \"description\": \"Servicio Premium con cuidado extra\",\n  \"price\": 60,\n  \"duration\": 45\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/services/{{serviceId}}",
@@ -212,7 +212,7 @@
                 "{{serviceId}}"
               ]
             },
-            "description": "Actualiza un servicio existente por su ID. Todos los campos son opcionales."
+            "description": "Actualiza un servicio."
           },
           "response": []
         },
@@ -231,17 +231,17 @@
                 "{{serviceId}}"
               ]
             },
-            "description": "Elimina un servicio por su ID."
+            "description": "Elimina un servicio por ID."
           },
           "response": []
         }
       ]
     },
     {
-      "name": "Time Off",
+      "name": "Appointments",
       "item": [
         {
-          "name": "Create Time Off",
+          "name": "Create Appointment",
           "request": {
             "method": "POST",
             "header": [
@@ -252,62 +252,82 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"staffId\": 5,\n  \"reason\": \"Vacaciones de verano\",\n  \"startDatetime\": \"2026-06-01T09:00:00.000Z\",\n  \"endDatetime\": \"2026-06-07T18:00:00.000Z\"\n}"
+              "raw": "{\n  \"date\": \"2026-09-15\",\n  \"staffId\": 2,\n  \"customerId\": 3,\n  \"statusId\": 1\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/time-offs",
+              "raw": "{{baseUrl}}/appointments",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-offs"
+                "appointments"
               ]
             },
-            "description": "Crea una ausencia de personal."
+            "description": "Crea una cita."
           },
           "response": []
         },
         {
-          "name": "List Time Off",
+          "name": "List Appointments",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/time-offs",
+              "raw": "{{baseUrl}}/appointments",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-offs"
+                "appointments"
               ]
             },
-            "description": "Obtiene la lista de todas las ausencias."
+            "description": "Lista citas."
           },
           "response": []
         },
         {
-          "name": "Get Time Off by ID",
+          "name": "Get Appointment by ID",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
+              "raw": "{{baseUrl}}/appointments/{{appointmentId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-offs",
-                "{{timeOffId}}"
+                "appointments",
+                "{{appointmentId}}"
               ]
             },
-            "description": "Obtiene una ausencia por su ID."
+            "description": "Obtiene una cita por ID."
           },
           "response": []
         },
         {
-          "name": "Update Time Off",
+          "name": "Get Appointment Services",
           "request": {
-            "method": "PUT",
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointments/{{appointmentId}}/services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments",
+                "{{appointmentId}}",
+                "services"
+              ]
+            },
+            "description": "Obtiene los servicios asociados a una cita."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Appointment Status",
+          "request": {
+            "method": "PATCH",
             "header": [
               {
                 "key": "Content-Type",
@@ -316,45 +336,134 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"staffId\": 5,\n  \"reason\": \"Vacaciones de verano (actualizadas)\",\n  \"startDatetime\": \"2026-06-01T09:00:00.000Z\",\n  \"endDatetime\": \"2026-06-10T18:00:00.000Z\"\n}"
+              "raw": "{\n  \"statusId\": 2\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
+              "raw": "{{baseUrl}}/appointments/{{appointmentId}}/status",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-offs",
-                "{{timeOffId}}"
+                "appointments",
+                "{{appointmentId}}",
+                "status"
               ]
             },
-            "description": "Actualiza una ausencia existente por su ID."
+            "description": "Actualiza el estado de una cita por ID."
           },
           "response": []
         },
         {
-          "name": "Delete Time Off",
+          "name": "Delete Appointment",
           "request": {
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
+              "raw": "{{baseUrl}}/appointments/{{appointmentId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "time-offs",
-                "{{timeOffId}}"
+                "appointments",
+                "{{appointmentId}}"
               ]
             },
-            "description": "Elimina una ausencia por su ID."
+            "description": "Elimina una cita por ID."
           },
           "response": []
         }
       ]
     },
     {
-      "name": "Staff Service",
+      "name": "Appointment Services",
+      "item": [
+        {
+          "name": "Create Appointment Service",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": {{appointmentId}},\n  \"serviceId\": {{serviceId}},\n  \"priceAtService\": 35.5,\n  \"quantity\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/appointment-services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-services"
+              ]
+            },
+            "description": "Asocia un servicio a una cita."
+          },
+          "response": []
+        },
+        {
+          "name": "List Appointment Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-services",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-services"
+              ]
+            },
+            "description": "Lista relaciones cita-servicio."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointment Service by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-services/{{appointmentServiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-services",
+                "{{appointmentServiceId}}"
+              ]
+            },
+            "description": "Obtiene una relación cita-servicio por ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Appointment Service",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-services/{{appointmentServiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-services",
+                "{{appointmentServiceId}}"
+              ]
+            },
+            "description": "Elimina una relación cita-servicio."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Staff Services",
       "item": [
         {
           "name": "Create Staff Service",
@@ -379,7 +488,7 @@
                 "staff-services"
               ]
             },
-            "description": "Asigna un servicio a un miembro del personal. Ambos IDs deben existir."
+            "description": "Asigna un servicio a un empleado."
           },
           "response": []
         },
@@ -397,7 +506,7 @@
                 "staff-services"
               ]
             },
-            "description": "Obtiene todas las asignaciones activas entre personal y servicios."
+            "description": "Lista servicios por empleado."
           },
           "response": []
         },
@@ -416,7 +525,7 @@
                 "{{staffServiceId}}"
               ]
             },
-            "description": "Obtiene una asignación de personal y servicio por su ID."
+            "description": "Obtiene una relación empleado-servicio por ID."
           },
           "response": []
         },
@@ -435,14 +544,14 @@
                 "{{staffServiceId}}"
               ]
             },
-            "description": "Elimina lógicamente una asignación de personal y servicio."
+            "description": "Elimina una relación empleado-servicio."
           },
           "response": []
         }
       ]
     },
     {
-      "name": "Staff Schedule",
+      "name": "Staff Schedules",
       "item": [
         {
           "name": "Create Staff Schedule",
@@ -456,7 +565,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"staffId\": {{userId}},\n  \"dayOfWeek\": \"2026-06-01\",\n  \"workStartTime\": \"09:00:00\",\n  \"workEndTime\": \"18:00:00\",\n  \"breakStartTime\": \"13:00:00\",\n  \"breakEndTime\": \"14:00:00\"\n}"
+              "raw": "{\n  \"staffId\": {{userId}},\n  \"dayOfWeek\": \"2026-09-15\",\n  \"workStartTime\": \"09:00:00\",\n  \"workEndTime\": \"18:00:00\",\n  \"breakStartTime\": \"13:00:00\",\n  \"breakEndTime\": \"14:00:00\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/staff-schedules",
@@ -467,7 +576,7 @@
                 "staff-schedules"
               ]
             },
-            "description": "Crea un horario para un miembro del personal. El descanso es opcional, pero sus dos horarios deben enviarse juntos."
+            "description": "Crea un horario del empleado."
           },
           "response": []
         },
@@ -485,7 +594,7 @@
                 "staff-schedules"
               ]
             },
-            "description": "Obtiene todos los horarios activos del personal."
+            "description": "Lista horarios del personal."
           },
           "response": []
         },
@@ -504,7 +613,7 @@
                 "{{staffScheduleId}}"
               ]
             },
-            "description": "Obtiene un horario por su ID."
+            "description": "Obtiene un horario por ID."
           },
           "response": []
         },
@@ -532,7 +641,7 @@
                 "{{staffScheduleId}}"
               ]
             },
-            "description": "Actualiza un horario existente por su ID. Todos los campos son opcionales."
+            "description": "Actualiza un horario."
           },
           "response": []
         },
@@ -551,7 +660,123 @@
                 "{{staffScheduleId}}"
               ]
             },
-            "description": "Elimina lógicamente un horario por su ID."
+            "description": "Elimina un horario por ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Time Offs",
+      "item": [
+        {
+          "name": "Create Time Off",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": 2,\n  \"reason\": \"Vacaciones\",\n  \"startDatetime\": \"2026-09-20T09:00:00.000Z\",\n  \"endDatetime\": \"2026-09-25T18:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/time-offs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "time-offs"
+              ]
+            },
+            "description": "Crea una ausencia del personal."
+          },
+          "response": []
+        },
+        {
+          "name": "List Time Offs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/time-offs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "time-offs"
+              ]
+            },
+            "description": "Lista ausencias."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Time Off by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "time-offs",
+                "{{timeOffId}}"
+              ]
+            },
+            "description": "Obtiene una ausencia por ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Time Off",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staffId\": 2,\n  \"reason\": \"Vacaciones actualizadas\",\n  \"startDatetime\": \"2026-09-22T09:00:00.000Z\",\n  \"endDatetime\": \"2026-09-27T18:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "time-offs",
+                "{{timeOffId}}"
+              ]
+            },
+            "description": "Actualiza una ausencia."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Time Off",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/time-offs/{{timeOffId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "time-offs",
+                "{{timeOffId}}"
+              ]
+            },
+            "description": "Elimina una ausencia."
           },
           "response": []
         }
@@ -583,7 +808,7 @@
                 "time-slots"
               ]
             },
-            "description": "Crea un nuevo horario (time slot). La diferencia entre startTime y endTime debe ser exactamente igual a slotDurationMinutes configurado en Scheduling Settings."
+            "description": "Crea un intervalo de horario."
           },
           "response": []
         },
@@ -601,7 +826,7 @@
                 "time-slots"
               ]
             },
-            "description": "Obtiene la lista de todos los time slots."
+            "description": "Lista intervalos de horario."
           },
           "response": []
         },
@@ -620,7 +845,7 @@
                 "{{timeSlotId}}"
               ]
             },
-            "description": "Obtiene un time slot por su ID."
+            "description": "Obtiene un intervalo por ID."
           },
           "response": []
         },
@@ -648,7 +873,7 @@
                 "{{timeSlotId}}"
               ]
             },
-            "description": "Actualiza un time slot existente por su ID. Todos los campos son opcionales."
+            "description": "Actualiza un intervalo."
           },
           "response": []
         },
@@ -667,7 +892,7 @@
                 "{{timeSlotId}}"
               ]
             },
-            "description": "Elimina lógicamente un time slot por su ID."
+            "description": "Elimina un intervalo."
           },
           "response": []
         }
@@ -699,7 +924,7 @@
                 "scheduling-settings"
               ]
             },
-            "description": "Crea la configuración de agendamiento. Solo puede existir UN registro en todo el sistema (single-tenant por ahora). Devuelve 409 si ya existe una configuración; en ese caso usar Update."
+            "description": "Crea la configuración global de agendamiento."
           },
           "response": []
         },
@@ -717,7 +942,7 @@
                 "scheduling-settings"
               ]
             },
-            "description": "Obtiene todas las configuraciones de agendamiento (get all)."
+            "description": "Lista configuraciones de agendamiento."
           },
           "response": []
         },
@@ -736,7 +961,7 @@
                 "{{schedulingSettingsId}}"
               ]
             },
-            "description": "Obtiene la configuración de agendamiento por su {id}. Devuelve 404 si no existe."
+            "description": "Obtiene una configuración por ID."
           },
           "response": []
         },
@@ -752,7 +977,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"slotDurationMinutes\": 10\n}"
+              "raw": "{\n  \"slotDurationMinutes\": 30\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/scheduling-settings/{{schedulingSettingsId}}",
@@ -764,14 +989,14 @@
                 "{{schedulingSettingsId}}"
               ]
             },
-            "description": "Actualiza la configuración de agendamiento existente, identificada por su {id}. Todos los campos son opcionales. No se puede eliminar esta configuración (no existe endpoint DELETE)."
+            "description": "Actualiza la configuración global."
           },
           "response": []
         }
       ]
     },
     {
-      "name": "Modules",
+      "name": "Catalogs",
       "item": [
         {
           "name": "List Modules",
@@ -787,15 +1012,10 @@
                 "modules"
               ]
             },
-            "description": "Obtiene todos los módulos activos."
+            "description": "Lista módulos."
           },
           "response": []
-        }
-      ]
-    },
-    {
-      "name": "Actions",
-      "item": [
+        },
         {
           "name": "List Actions",
           "request": {
@@ -810,7 +1030,62 @@
                 "actions"
               ]
             },
-            "description": "Obtiene todas las acciones activas."
+            "description": "Lista acciones."
+          },
+          "response": []
+        },
+        {
+          "name": "List Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions"
+              ]
+            },
+            "description": "Lista permisos."
+          },
+          "response": []
+        },
+        {
+          "name": "List Appointment Statuses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-statuses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-statuses"
+              ]
+            },
+            "description": "Lista estados de cita."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointment Status by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-statuses/{{appointmentStatusId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-statuses",
+                "{{appointmentStatusId}}"
+              ]
+            },
+            "description": "Obtiene un estado de cita por ID."
           },
           "response": []
         }
@@ -831,7 +1106,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Administrator\",\n  \"description\": \"Full access to the barber shop administration\"\n}"
+              "raw": "{\n  \"name\": \"Administrator\",\n  \"description\": \"Acceso total al sistema\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/roles",
@@ -842,7 +1117,7 @@
                 "roles"
               ]
             },
-            "description": "Crea un rol. La descripción es opcional y admite hasta 250 caracteres."
+            "description": "Crea un rol."
           },
           "response": []
         },
@@ -860,7 +1135,27 @@
                 "roles"
               ]
             },
-            "description": "Obtiene todos los roles activos."
+            "description": "Lista roles."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Role Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/roles/{{roleId}}/permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                "{{roleId}}",
+                "permissions"
+              ]
+            },
+            "description": "Obtiene permisos asociados a un rol."
           },
           "response": []
         },
@@ -879,7 +1174,7 @@
                 "{{roleId}}"
               ]
             },
-            "description": "Obtiene un rol por su ID."
+            "description": "Obtiene un rol por ID."
           },
           "response": []
         },
@@ -895,7 +1190,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Manager\",\n  \"description\": \"Barber shop manager\"\n}"
+              "raw": "{\n  \"name\": \"Manager\",\n  \"description\": \"Encargado del negocio\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/roles/{{roleId}}",
@@ -907,7 +1202,7 @@
                 "{{roleId}}"
               ]
             },
-            "description": "Actualiza un rol existente por su ID. Todos los campos son opcionales."
+            "description": "Actualiza un rol."
           },
           "response": []
         },
@@ -926,7 +1221,7 @@
                 "{{roleId}}"
               ]
             },
-            "description": "Elimina lógicamente un rol por su ID."
+            "description": "Elimina un rol por ID."
           },
           "response": []
         }
@@ -958,7 +1253,7 @@
                 "role-permissions"
               ]
             },
-            "description": "Asigna un permiso a un rol. La combinación roleId + permissionId no debe repetirse."
+            "description": "Asocia un permiso a un rol."
           },
           "response": []
         },
@@ -976,7 +1271,7 @@
                 "role-permissions"
               ]
             },
-            "description": "Obtiene todas las asignaciones activas entre roles y permisos."
+            "description": "Lista relaciones rol-permiso."
           },
           "response": []
         },
@@ -995,7 +1290,7 @@
                 "{{rolePermissionId}}"
               ]
             },
-            "description": "Obtiene una asignación de rol y permiso por su ID."
+            "description": "Obtiene una relación rol-permiso por ID."
           },
           "response": []
         },
@@ -1014,146 +1309,7 @@
                 "{{rolePermissionId}}"
               ]
             },
-            "description": "Elimina lógicamente una asignación. Las tablas pivote no tienen endpoint de actualización."
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Permissions",
-      "item": [
-        {
-          "name": "List Permissions",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/permissions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "permissions"
-              ]
-            },
-            "description": "Obtiene todas las relaciones de permisos activas."
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Appointment Statuses",
-      "item": [
-        {
-          "name": "Create Appointment Status",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Pending\",\n  \"description\": \"Appointment created but not confirmed yet\",\n  \"colorCode\": \"#3B82F6\",\n  \"isEnabled\": true\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/appointment-statuses",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "appointment-statuses"
-              ]
-            },
-            "description": "Crea un nuevo estado de cita en el catálogo. Solo 'name' es obligatorio: 'description' es opcional, 'colorCode' debe ser un HEX válido (default #CCCCCC) e 'isEnabled' indica si el estado puede usarse al crear citas (default true). Devuelve 409 si el nombre ya está registrado."
-          },
-          "response": []
-        },
-        {
-          "name": "List Appointment Statuses",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/appointment-statuses",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "appointment-statuses"
-              ]
-            },
-            "description": "Obtiene la lista de todos los estados de cita (sin los eliminados lógicamente)."
-          },
-          "response": []
-        },
-        {
-          "name": "Get Appointment Status by ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/appointment-statuses/{{appointmentStatusId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "appointment-statuses",
-                "{{appointmentStatusId}}"
-              ]
-            },
-            "description": "Obtiene un estado de cita por su ID. Devuelve 404 si no existe."
-          },
-          "response": []
-        },
-        {
-          "name": "Update Appointment Status",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Confirmed\",\n  \"description\": \"Appointment confirmed by the client\",\n  \"colorCode\": \"#22C55E\",\n  \"isEnabled\": true\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/appointment-statuses/{{appointmentStatusId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "appointment-statuses",
-                "{{appointmentStatusId}}"
-              ]
-            },
-            "description": "Actualiza un estado de cita existente por su ID. Todos los campos son opcionales. Devuelve 409 si el nuevo nombre ya está registrado."
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Appointment Status",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/appointment-statuses/{{appointmentStatusId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "appointment-statuses",
-                "{{appointmentStatusId}}"
-              ]
-            },
-            "description": "Elimina lógicamente un estado de cita por su ID (soft delete)."
+            "description": "Elimina una relación rol-permiso."
           },
           "response": []
         }

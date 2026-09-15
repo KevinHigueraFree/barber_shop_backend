@@ -7,6 +7,7 @@ import { GetAppointmentUseCase } from '@/modules/appointment/application/use-cas
 import { ListAppointmentsUseCase } from '@/modules/appointment/application/use-cases/list-appointments.use-case';
 import { UpdateAppointmentStatusUseCase } from '@/modules/appointment/application/use-cases/update-appointment-status.use-case';
 import { ParseIdPipe } from '@/shared/interfaces/http/pipes/parse-id.pipe';
+import { GetAppointmentWithServiceUseCase } from '@/modules/appointment/application/use-cases/get-appointment-with-services.use-case';
 
 @Controller('appointments')
 export class AppointmentController {
@@ -16,6 +17,7 @@ export class AppointmentController {
     private readonly listUseCase: ListAppointmentsUseCase,
     private readonly updateStatusUseCase: UpdateAppointmentStatusUseCase,
     private readonly deleteUseCase: DeleteAppointmentUseCase,
+    private readonly getAppointmentWithServicesUseCase: GetAppointmentWithServiceUseCase,
   ) {}
 
   @Post()
@@ -26,6 +28,11 @@ export class AppointmentController {
   @Get()
   findAll() {
     return this.listUseCase.execute();
+  }
+
+  @Get(':id/services')
+  findServices(@Param('id', ParseIdPipe) id: number) {
+    return this.getAppointmentWithServicesUseCase.execute(id);
   }
 
   @Get(':id')
