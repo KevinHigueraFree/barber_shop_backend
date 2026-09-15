@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CreateAppointmentStatusUseCase } from '@/modules/appointment-status/application/use-cases/create-appointment-status.use-case';
 import { GetAppointmentStatusUseCase } from '@/modules/appointment-status/application/use-cases/get-appointment-status.use-case';
 import { ListAppointmentStatusesUseCase } from '@/modules/appointment-status/application/use-cases/list-appointment-statuses.use-case';
-import { UpdateAppointmentStatusUseCase } from '@/modules/appointment-status/application/use-cases/update-appointment-status.use-case';
-import { DeleteAppointmentStatusUseCase } from '@/modules/appointment-status/application/use-cases/delete-appointment-status.use-case';
 import { APPOINTMENT_STATUS_REPOSITORY } from '@/modules/appointment-status/domain/repositories/appointment-status.repository';
 import { TypeOrmAppointmentStatusEntity } from '@/modules/appointment-status/infrastructure/persistence/typeorm-appointment-status.entity';
 import { TypeOrmAppointmentStatusRepository } from '@/modules/appointment-status/infrastructure/persistence/typeorm-appointment-status.repository';
@@ -14,11 +11,8 @@ import { AppointmentStatusController } from '@/modules/appointment-status/interf
   imports: [TypeOrmModule.forFeature([TypeOrmAppointmentStatusEntity])],
   controllers: [AppointmentStatusController],
   providers: [
-    CreateAppointmentStatusUseCase,
     GetAppointmentStatusUseCase,
     ListAppointmentStatusesUseCase,
-    UpdateAppointmentStatusUseCase,
-    DeleteAppointmentStatusUseCase,
     {
       provide: APPOINTMENT_STATUS_REPOSITORY,
       useClass: TypeOrmAppointmentStatusRepository,

@@ -10,9 +10,11 @@ import { DeleteUserUseCase } from '@/modules/user/application/use-cases/delete-u
 import { USER_REPOSITORY } from '@/modules/user/domain/repositories/user.repository';
 import { TypeOrmUserRepository } from '@/modules/user/infrastructure/persistence/typeorm-user.repository';
 import { TypeOrmUserEntity } from '@/modules/user/infrastructure/persistence/typeorm-user.entity';
+import { RoleModule } from '@/modules/role/infrastructure/role.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TypeOrmUserEntity])],
+  imports: [TypeOrmModule.forFeature([TypeOrmUserEntity]), RoleModule],
+
   controllers: [UserController],
   providers: [
     CreateUserUseCase,

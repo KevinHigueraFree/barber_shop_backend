@@ -21,7 +21,7 @@ export class UpdateRoleUseCase {
   async execute(id: number, dto: UpdateRoleDto): Promise<Role> {
     const existing = await this.roleRepository.findById(id);
     if (!existing) {
-      throw new EntityNotFoundException('role', id);
+      throw new EntityNotFoundException('Role', id);
     }
 
     const targetName = dto.name ?? existing.name;

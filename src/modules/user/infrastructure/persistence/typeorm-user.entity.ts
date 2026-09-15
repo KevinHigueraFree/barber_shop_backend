@@ -7,10 +7,13 @@ import {
   DeleteDateColumn,
   Index,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { TypeOrmTimeOffEntity } from '@/modules/time-off/infrastructure/persistence/typeorm-time-off.entity'; // Asegúrate de importar la otra entidad
 import { TypeOrmStaffScheduleEntity } from '@/modules/staff-schedule/infrastructure/persistence/typeorm-staff-schedule.entity';
 import { TypeOrmStaffServiceEntity } from '@/modules/staff-service/infrastructure/persistence/typeorm-staff-service.entity';
+import { TypeOrmRoleEntity } from '@/modules/role/infrastructure/persistence/typeorm-role.entity';
 
 @Entity('user')
 @Index('IDX_user_email_active_unique', ['email'], {
@@ -69,4 +72,8 @@ export class TypeOrmUserEntity {
     cascade: true,
   })
   staffServices!: TypeOrmStaffServiceEntity[];
+
+  @ManyToOne(() => TypeOrmRoleEntity, { onDelete: 'RESTRICT' })
+  @JoinColumn({ name: 'role_id' })
+  role!: TypeOrmRoleEntity;
 }

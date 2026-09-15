@@ -4,57 +4,79 @@ import { TypeOrmModuleEntity } from '@/modules/module/infrastructure/persistence
 import { TypeOrmActionEntity } from '@/modules/action/infrastructure/persistence/typeorm-action.entity';
 
 export const permissionCatalog = [
-  // appointment-status
+  // appointment-status -> read only
   { id: 1, moduleId: 1, actionId: 1 },
-  { id: 2, moduleId: 1, actionId: 2 },
-  { id: 3, moduleId: 1, actionId: 3 },
-  { id: 4, moduleId: 1, actionId: 4 },
 
-  // scheduling-setting
-  { id: 5, moduleId: 2, actionId: 1 },
-  { id: 6, moduleId: 2, actionId: 3 },
+  // scheduling-setting -> read, create, update
+  { id: 2, moduleId: 2, actionId: 1 },
+  { id: 3, moduleId: 2, actionId: 2 },
+  { id: 4, moduleId: 2, actionId: 3 },
 
-  // service
-  { id: 7, moduleId: 3, actionId: 1 },
-  { id: 8, moduleId: 3, actionId: 2 },
-  { id: 9, moduleId: 3, actionId: 3 },
-  { id: 10, moduleId: 3, actionId: 4 },
+  // service -> read, create, update, delete
+  { id: 5, moduleId: 3, actionId: 1 },
+  { id: 6, moduleId: 3, actionId: 2 },
+  { id: 7, moduleId: 3, actionId: 3 },
+  { id: 8, moduleId: 3, actionId: 4 },
 
-  // staff-schedule
-  { id: 11, moduleId: 4, actionId: 1 },
-  { id: 12, moduleId: 4, actionId: 2 },
-  { id: 13, moduleId: 4, actionId: 3 },
-  { id: 14, moduleId: 4, actionId: 4 },
+  // staff-schedule -> read, create, update, delete
+  { id: 9, moduleId: 4, actionId: 1 },
+  { id: 10, moduleId: 4, actionId: 2 },
+  { id: 11, moduleId: 4, actionId: 3 },
+  { id: 12, moduleId: 4, actionId: 4 },
 
-  // staff-service
-  { id: 15, moduleId: 5, actionId: 1 },
-  { id: 16, moduleId: 5, actionId: 2 },
-  { id: 17, moduleId: 5, actionId: 3 },
-  { id: 18, moduleId: 5, actionId: 4 },
+  // staff-service -> read, create, delete
+  { id: 13, moduleId: 5, actionId: 1 },
+  { id: 14, moduleId: 5, actionId: 2 },
+  { id: 15, moduleId: 5, actionId: 4 },
 
-  // time-off
-  { id: 19, moduleId: 6, actionId: 1 },
-  { id: 20, moduleId: 6, actionId: 2 },
-  { id: 21, moduleId: 6, actionId: 3 },
-  { id: 22, moduleId: 6, actionId: 4 },
+  // time-off -> read, create, update, delete
+  { id: 16, moduleId: 6, actionId: 1 },
+  { id: 17, moduleId: 6, actionId: 2 },
+  { id: 18, moduleId: 6, actionId: 3 },
+  { id: 19, moduleId: 6, actionId: 4 },
 
-  // time-slot
-  { id: 23, moduleId: 7, actionId: 1 },
-  { id: 24, moduleId: 7, actionId: 2 },
-  { id: 25, moduleId: 7, actionId: 3 },
-  { id: 26, moduleId: 7, actionId: 4 },
+  // time-slot -> read, create, update, delete
+  { id: 20, moduleId: 7, actionId: 1 },
+  { id: 21, moduleId: 7, actionId: 2 },
+  { id: 22, moduleId: 7, actionId: 3 },
+  { id: 23, moduleId: 7, actionId: 4 },
 
-  // user
-  { id: 27, moduleId: 8, actionId: 1 },
-  { id: 28, moduleId: 8, actionId: 2 },
-  { id: 29, moduleId: 8, actionId: 3 },
-  { id: 30, moduleId: 8, actionId: 4 },
+  // user -> read, create, update, delete
+  { id: 24, moduleId: 8, actionId: 1 },
+  { id: 25, moduleId: 8, actionId: 2 },
+  { id: 26, moduleId: 8, actionId: 3 },
+  { id: 27, moduleId: 8, actionId: 4 },
 
-  // role
-  { id: 31, moduleId: 9, actionId: 1 },
-  { id: 32, moduleId: 9, actionId: 2 },
-  { id: 33, moduleId: 9, actionId: 3 },
-  { id: 34, moduleId: 9, actionId: 4 },
+  // role -> read, create, update, delete
+  { id: 28, moduleId: 9, actionId: 1 },
+  { id: 29, moduleId: 9, actionId: 2 },
+  { id: 30, moduleId: 9, actionId: 3 },
+  { id: 31, moduleId: 9, actionId: 4 },
+
+  // appointment -> read, create, update, delete
+  { id: 32, moduleId: 10, actionId: 1 },
+  { id: 33, moduleId: 10, actionId: 2 },
+  { id: 34, moduleId: 10, actionId: 3 },
+  { id: 35, moduleId: 10, actionId: 4 },
+
+  // appointment-service -> read, create, delete
+  { id: 36, moduleId: 11, actionId: 1 },
+  { id: 37, moduleId: 11, actionId: 2 },
+  { id: 38, moduleId: 11, actionId: 4 },
+
+  // role-permission -> read, create, delete
+  { id: 39, moduleId: 12, actionId: 1 },
+  { id: 40, moduleId: 12, actionId: 2 },
+  { id: 41, moduleId: 12, actionId: 4 },
+
+  // permission -> read only
+  { id: 42, moduleId: 13, actionId: 1 },
+
+  // module -> read only
+  { id: 43, moduleId: 14, actionId: 1 },
+
+  // action -> read only
+  { id: 44, moduleId: 15, actionId: 1 },
 ];
 
 export async function seedPermissions(dataSource: DataSource) {
@@ -63,7 +85,7 @@ export async function seedPermissions(dataSource: DataSource) {
     const moduleRepo = manager.getRepository(TypeOrmModuleEntity);
     const actionRepo = manager.getRepository(TypeOrmActionEntity);
 
-    const expectedModuleIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const expectedModuleIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     const expectedActionIds = [1, 2, 3, 4];
 
     const modules = await moduleRepo.find({
