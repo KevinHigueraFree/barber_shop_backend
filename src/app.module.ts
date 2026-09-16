@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import databaseConfig from '@/config/database.config';
+import { AppController } from '@/app.controller';
+import { AppService } from '@/app.service';
 import { UserModule } from '@/modules/user/infrastructure/user.module';
 import { ServiceModule } from '@/modules/service/infrastructure/service.module';
 import { TimeOffModule } from '@/modules/time-off/infrastructure/time-off.module';
@@ -17,6 +19,7 @@ import { RoleModule } from '@/modules/role/infrastructure/role.module';
 import { RolePermissionModule } from '@/modules/role-permission/infrastructure/role-permission.module';
 import { AppointmentModule } from '@/modules/appointment/infrastructure/appointment.module';
 import { AppointmentServiceModule } from '@/modules/appointment-service/infrastructure/appointment-service.module';
+import { AppointmentTimeSlotModule } from '@/modules/appointment-time-slot/infrastructure/appointment-time-slot.module';
 
 @Module({
   imports: [
@@ -44,6 +47,9 @@ import { AppointmentServiceModule } from '@/modules/appointment-service/infrastr
     RolePermissionModule,
     AppointmentModule,
     AppointmentServiceModule,
+    AppointmentTimeSlotModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

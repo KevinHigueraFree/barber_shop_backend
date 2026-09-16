@@ -463,6 +463,76 @@
       ]
     },
     {
+      "name": "Appointment Time Slots",
+      "item": [
+        {
+          "name": "Create Appointment Time Slot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": {{appointmentId}},\n  \"timeSlotId\": {{timeSlotId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/appointment-time-slots",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-time-slots"
+              ]
+            },
+            "description": "Asocia una franja horaria a una cita."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointment Time Slot by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-time-slots/{{appointmentTimeSlotId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-time-slots",
+                "{{appointmentTimeSlotId}}"
+              ]
+            },
+            "description": "Obtiene una relación cita-franja horaria por ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Appointment Time Slot",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointment-time-slots/{{appointmentTimeSlotId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointment-time-slots",
+                "{{appointmentTimeSlotId}}"
+              ]
+            },
+            "description": "Elimina una relación cita-franja horaria."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Staff Services",
       "item": [
         {
